@@ -1,0 +1,3471 @@
+{
+  "meta": {
+    "created_at": "2026-09-14T02:13:38",
+    "num_samples": 136,
+    "umap": {
+      "n_neighbors": 30,
+      "min_dist": 0.3,
+      "metric": "cosine",
+      "random_state": 0,
+      "text_projection": "tactile_transform",
+      "box_aspect": 0.66
+    }
+  },
+  "axes": [
+    {
+      "name": "content",
+      "display_name": "Contents",
+      "class_names": [
+        "solid",
+        "granular",
+        "liquid",
+        "empty"
+      ],
+      "colors": [
+        "#FF684D",
+        "#78C878",
+        "#3AAEBB",
+        "#FBC14C"
+      ],
+      "prompts": {
+        "solid": [
+          "solid content"
+        ],
+        "granular": [
+          "granular",
+          "particle"
+        ],
+        "liquid": [
+          "liquid",
+          "fluid"
+        ],
+        "empty": [
+          "empty"
+        ]
+      }
+    },
+    {
+      "name": "mass",
+      "display_name": "Fill level",
+      "class_names": [
+        "full",
+        "half",
+        "empty"
+      ],
+      "colors": [
+        "#FF684D",
+        "#78C878",
+        "#3AAEBB"
+      ],
+      "prompts": {
+        "full": [
+          "full",
+          "fully filled"
+        ],
+        "half": [
+          "half"
+        ],
+        "empty": [
+          "empty"
+        ]
+      }
+    },
+    {
+      "name": "material",
+      "display_name": "Material",
+      "class_names": [
+        "metal",
+        "plastic",
+        "glass"
+      ],
+      "colors": [
+        "#FF684D",
+        "#78C878",
+        "#3AAEBB"
+      ],
+      "prompts": {
+        "metal": [
+          "metal"
+        ],
+        "plastic": [
+          "plastic"
+        ],
+        "glass": [
+          "glass"
+        ]
+      }
+    },
+    {
+      "name": "rigidity",
+      "display_name": "Rigidity",
+      "class_names": [
+        "rigid",
+        "deformable"
+      ],
+      "colors": [
+        "#FF684D",
+        "#78C878"
+      ],
+      "prompts": {
+        "rigid": [
+          "rigid"
+        ],
+        "deformable": [
+          "deformable"
+        ]
+      }
+    }
+  ],
+  "samples": [
+    {
+      "id": "sample-1",
+      "object_name": "granular_full_plastic_rigid",
+      "x": 2.558748245239258,
+      "y": 13.765487670898438,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-2",
+      "object_name": "granular_half_plastic_deformable",
+      "x": 0.2893880009651184,
+      "y": 6.8533244132995605,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-3",
+      "object_name": "granular_half_metal_rigid",
+      "x": 2.3375370502471924,
+      "y": 8.773887634277344,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-4",
+      "object_name": "solid_full_glass_rigid",
+      "x": 2.343761444091797,
+      "y": 11.974977493286133,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-5",
+      "object_name": "liquid_half_plastic_rigid",
+      "x": -1.06528639793396,
+      "y": 9.073944091796875,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-6",
+      "object_name": "solid_half_metal_deformable",
+      "x": 4.265925407409668,
+      "y": 13.714977264404297,
+      "labels": {
+        "content": "solid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": false,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-7",
+      "object_name": "granular_full_glass_rigid",
+      "x": 2.249478578567505,
+      "y": 12.431938171386719,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-8",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.6242899894714355,
+      "y": 11.719778060913086,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-9",
+      "object_name": "granular_half_metal_deformable",
+      "x": 1.896726131439209,
+      "y": 7.082281112670898,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-10",
+      "object_name": "solid_full_metal_rigid",
+      "x": 1.5337355136871338,
+      "y": 11.891400337219238,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-11",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.409523963928223,
+      "y": 10.85648250579834,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": false
+      }
+    },
+    {
+      "id": "sample-12",
+      "object_name": "liquid_half_glass_rigid",
+      "x": 2.056718349456787,
+      "y": 10.138851165771484,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-13",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.306782245635986,
+      "y": 12.374181747436523,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-14",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.378286361694336,
+      "y": 12.184076309204102,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-15",
+      "object_name": "solid_half_metal_deformable",
+      "x": 2.485799551010132,
+      "y": 7.500585556030273,
+      "labels": {
+        "content": "solid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-16",
+      "object_name": "liquid_half_plastic_rigid",
+      "x": -1.027886986732483,
+      "y": 8.744723320007324,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-17",
+      "object_name": "empty_empty_metal_deformable",
+      "x": 4.789661407470703,
+      "y": 8.705435752868652,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-18",
+      "object_name": "liquid_half_plastic_deformable",
+      "x": 0.010650642216205597,
+      "y": 7.688787937164307,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-19",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.789194107055664,
+      "y": 14.886882781982422,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-20",
+      "object_name": "granular_half_plastic_deformable",
+      "x": -0.0011916498187929392,
+      "y": 6.504325866699219,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-21",
+      "object_name": "solid_full_glass_rigid",
+      "x": 2.5154433250427246,
+      "y": 11.77872085571289,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-22",
+      "object_name": "granular_half_metal_deformable",
+      "x": 2.1299469470977783,
+      "y": 7.224691390991211,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-23",
+      "object_name": "liquid_full_metal_rigid",
+      "x": 1.08185613155365,
+      "y": 10.239509582519531,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-24",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.130474805831909,
+      "y": 14.164314270019531,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-25",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.4780638217926025,
+      "y": 14.590436935424805,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-26",
+      "object_name": "granular_half_metal_rigid",
+      "x": 2.927138566970825,
+      "y": 9.293438911437988,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": false,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-27",
+      "object_name": "solid_half_metal_deformable",
+      "x": 2.5062131881713867,
+      "y": 7.595512390136719,
+      "labels": {
+        "content": "solid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-28",
+      "object_name": "granular_half_metal_rigid",
+      "x": 2.5907442569732666,
+      "y": 8.871516227722168,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-29",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.50288987159729,
+      "y": 14.352287292480469,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-30",
+      "object_name": "empty_empty_glass_rigid",
+      "x": 4.039712429046631,
+      "y": 11.184415817260742,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-31",
+      "object_name": "granular_full_metal_rigid",
+      "x": 1.1866199970245361,
+      "y": 12.743006706237793,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-32",
+      "object_name": "granular_half_plastic_rigid",
+      "x": 0.0974341630935669,
+      "y": 5.991868019104004,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-33",
+      "object_name": "liquid_half_glass_rigid",
+      "x": 2.515582323074341,
+      "y": 10.57601261138916,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-34",
+      "object_name": "granular_half_plastic_rigid",
+      "x": 2.5962448120117188,
+      "y": 8.461465835571289,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": false,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-35",
+      "object_name": "granular_half_metal_deformable",
+      "x": 2.0322299003601074,
+      "y": 6.597219467163086,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-36",
+      "object_name": "granular_half_glass_rigid",
+      "x": 2.975390672683716,
+      "y": 10.120553016662598,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-37",
+      "object_name": "liquid_half_metal_rigid",
+      "x": 1.070259690284729,
+      "y": 9.010916709899902,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-38",
+      "object_name": "liquid_half_plastic_deformable",
+      "x": -0.18080726265907288,
+      "y": 8.072933197021484,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-39",
+      "object_name": "liquid_half_plastic_rigid",
+      "x": -0.8726845979690552,
+      "y": 8.695517539978027,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-40",
+      "object_name": "empty_empty_plastic_deformable",
+      "x": 5.423327445983887,
+      "y": 9.969976425170898,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-41",
+      "object_name": "liquid_half_glass_rigid",
+      "x": 2.50319766998291,
+      "y": 10.205005645751953,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-42",
+      "object_name": "liquid_half_plastic_rigid",
+      "x": -0.5279484987258911,
+      "y": 8.980766296386719,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-43",
+      "object_name": "solid_full_metal_rigid",
+      "x": 1.1151742935180664,
+      "y": 11.58809757232666,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-44",
+      "object_name": "granular_half_metal_deformable",
+      "x": 1.6947972774505615,
+      "y": 7.213081359863281,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-45",
+      "object_name": "empty_empty_metal_deformable",
+      "x": 4.511311054229736,
+      "y": 8.54001522064209,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-46",
+      "object_name": "liquid_half_metal_rigid",
+      "x": 1.177951455116272,
+      "y": 9.025944709777832,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-47",
+      "object_name": "empty_empty_glass_rigid",
+      "x": 5.041876792907715,
+      "y": 11.93322467803955,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": false,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-48",
+      "object_name": "solid_full_metal_rigid",
+      "x": 1.4036357402801514,
+      "y": 11.749732971191406,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-49",
+      "object_name": "liquid_half_plastic_rigid",
+      "x": -0.5029370188713074,
+      "y": 9.071724891662598,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-50",
+      "object_name": "empty_empty_glass_rigid",
+      "x": 3.553201198577881,
+      "y": 10.915155410766602,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-51",
+      "object_name": "liquid_full_plastic_rigid",
+      "x": 2.6588973999023438,
+      "y": 14.986898422241211,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-52",
+      "object_name": "granular_half_plastic_rigid",
+      "x": -0.041821207851171494,
+      "y": 5.701598167419434,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-53",
+      "object_name": "liquid_full_metal_rigid",
+      "x": 0.8293768167495728,
+      "y": 10.793795585632324,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-54",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.402344226837158,
+      "y": 11.495290756225586,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-55",
+      "object_name": "empty_empty_plastic_deformable",
+      "x": 5.646092414855957,
+      "y": 10.24258804321289,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-56",
+      "object_name": "liquid_full_metal_rigid",
+      "x": 0.873465359210968,
+      "y": 10.341516494750977,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-57",
+      "object_name": "liquid_half_glass_rigid",
+      "x": 2.0358643531799316,
+      "y": 10.425254821777344,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-58",
+      "object_name": "liquid_half_plastic_rigid",
+      "x": -1.0056836605072021,
+      "y": 9.192639350891113,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-59",
+      "object_name": "liquid_half_metal_deformable",
+      "x": 1.520916223526001,
+      "y": 7.949835777282715,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-60",
+      "object_name": "liquid_half_metal_deformable",
+      "x": 1.403743863105774,
+      "y": 8.465261459350586,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-61",
+      "object_name": "liquid_full_plastic_rigid",
+      "x": 2.565150260925293,
+      "y": 14.613120079040527,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-62",
+      "object_name": "granular_full_plastic_rigid",
+      "x": 2.1790575981140137,
+      "y": 13.867128372192383,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-63",
+      "object_name": "liquid_full_metal_rigid",
+      "x": 0.9681833982467651,
+      "y": 10.681325912475586,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-64",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.504522800445557,
+      "y": 11.437081336975098,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-65",
+      "object_name": "empty_empty_plastic_deformable",
+      "x": 6.079010486602783,
+      "y": 10.071818351745605,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-66",
+      "object_name": "granular_full_metal_rigid",
+      "x": 1.1259779930114746,
+      "y": 12.509818077087402,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-67",
+      "object_name": "liquid_half_metal_deformable",
+      "x": 1.6540842056274414,
+      "y": 8.189146995544434,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-68",
+      "object_name": "liquid_full_plastic_rigid",
+      "x": 2.3265442848205566,
+      "y": 15.038468360900879,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-69",
+      "object_name": "granular_half_plastic_deformable",
+      "x": 0.4717320203781128,
+      "y": 6.837119102478027,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-70",
+      "object_name": "liquid_half_plastic_deformable",
+      "x": -0.1311926245689392,
+      "y": 8.232810020446777,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-71",
+      "object_name": "empty_empty_plastic_deformable",
+      "x": 5.560875415802002,
+      "y": 9.931394577026367,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-72",
+      "object_name": "liquid_full_plastic_rigid",
+      "x": 2.7199788093566895,
+      "y": 14.885603904724121,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-73",
+      "object_name": "empty_empty_metal_deformable",
+      "x": 4.818475723266602,
+      "y": 8.989222526550293,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-74",
+      "object_name": "liquid_full_metal_rigid",
+      "x": 0.9412984251976013,
+      "y": 10.005693435668945,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-75",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.152683973312378,
+      "y": 14.480801582336426,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-76",
+      "object_name": "empty_empty_metal_deformable",
+      "x": 4.628151893615723,
+      "y": 8.703840255737305,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-77",
+      "object_name": "liquid_half_metal_rigid",
+      "x": 1.3762508630752563,
+      "y": 9.357940673828125,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-78",
+      "object_name": "granular_full_metal_rigid",
+      "x": 1.4971541166305542,
+      "y": 12.649724006652832,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-79",
+      "object_name": "empty_empty_glass_rigid",
+      "x": 3.3938870429992676,
+      "y": 11.053999900817871,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-80",
+      "object_name": "granular_half_glass_rigid",
+      "x": 3.230348587036133,
+      "y": 10.122653007507324,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-81",
+      "object_name": "liquid_half_metal_rigid",
+      "x": 1.0902440547943115,
+      "y": 9.369805335998535,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-82",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.682801246643066,
+      "y": 12.079365730285645,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-83",
+      "object_name": "granular_full_glass_rigid",
+      "x": 2.2043614387512207,
+      "y": 12.636011123657227,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-84",
+      "object_name": "empty_empty_plastic_deformable",
+      "x": 5.75476598739624,
+      "y": 9.776986122131348,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-85",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.5773861408233643,
+      "y": 14.0671968460083,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-86",
+      "object_name": "granular_half_metal_deformable",
+      "x": 2.0030171871185303,
+      "y": 7.031219482421875,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-87",
+      "object_name": "granular_full_metal_rigid",
+      "x": 1.3767787218093872,
+      "y": 12.885692596435547,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-88",
+      "object_name": "liquid_half_metal_deformable",
+      "x": 1.3285448551177979,
+      "y": 8.174829483032227,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-89",
+      "object_name": "empty_empty_metal_deformable",
+      "x": 4.903189659118652,
+      "y": 8.8500337600708,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-90",
+      "object_name": "granular_half_metal_deformable",
+      "x": 2.2859904766082764,
+      "y": 6.8325886726379395,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-91",
+      "object_name": "granular_full_glass_rigid",
+      "x": 2.0234451293945312,
+      "y": 12.613054275512695,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-92",
+      "object_name": "solid_full_glass_rigid",
+      "x": 2.8991191387176514,
+      "y": 11.455870628356934,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-93",
+      "object_name": "granular_half_metal_rigid",
+      "x": 2.8583226203918457,
+      "y": 8.723689079284668,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-94",
+      "object_name": "liquid_full_plastic_rigid",
+      "x": 2.370232582092285,
+      "y": 15.179685592651367,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-95",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.3454654216766357,
+      "y": 15.090607643127441,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-96",
+      "object_name": "liquid_half_plastic_rigid",
+      "x": -0.04089829698204994,
+      "y": 8.726344108581543,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": false
+      }
+    },
+    {
+      "id": "sample-97",
+      "object_name": "liquid_half_metal_deformable",
+      "x": 1.3422967195510864,
+      "y": 8.189923286437988,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-98",
+      "object_name": "granular_full_plastic_rigid",
+      "x": 2.419142246246338,
+      "y": 13.86099910736084,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-99",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.153632164001465,
+      "y": 11.479832649230957,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-100",
+      "object_name": "liquid_half_glass_rigid",
+      "x": 2.3135154247283936,
+      "y": 10.402018547058105,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-101",
+      "object_name": "granular_half_plastic_rigid",
+      "x": -0.23560287058353424,
+      "y": 5.77742862701416,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-102",
+      "object_name": "liquid_half_metal_rigid",
+      "x": 0.8986460566520691,
+      "y": 8.879023551940918,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-103",
+      "object_name": "granular_half_metal_deformable",
+      "x": 2.104907274246216,
+      "y": 6.974248886108398,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-104",
+      "object_name": "empty_empty_plastic_deformable",
+      "x": 5.893074035644531,
+      "y": 9.625868797302246,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-105",
+      "object_name": "granular_full_plastic_rigid",
+      "x": 2.1588594913482666,
+      "y": 13.81257152557373,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-106",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.25251579284668,
+      "y": 11.812417984008789,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-107",
+      "object_name": "empty_empty_plastic_deformable",
+      "x": 5.772536754608154,
+      "y": 9.90120792388916,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-108",
+      "object_name": "granular_half_plastic_rigid",
+      "x": -0.20241129398345947,
+      "y": 5.670864582061768,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-109",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.757160186767578,
+      "y": 14.805274963378906,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-110",
+      "object_name": "solid_full_metal_rigid",
+      "x": 1.8781908750534058,
+      "y": 11.926401138305664,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": false,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-111",
+      "object_name": "empty_empty_glass_rigid",
+      "x": 3.8098530769348145,
+      "y": 11.098954200744629,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-112",
+      "object_name": "granular_half_plastic_rigid",
+      "x": -0.25074276328086853,
+      "y": 6.117002487182617,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-113",
+      "object_name": "liquid_half_plastic_rigid",
+      "x": -0.8767272233963013,
+      "y": 8.751155853271484,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-114",
+      "object_name": "empty_empty_plastic_deformable",
+      "x": 5.338308334350586,
+      "y": 9.99190902709961,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-115",
+      "object_name": "solid_full_metal_rigid",
+      "x": 1.320812463760376,
+      "y": 11.536821365356445,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-116",
+      "object_name": "liquid_half_plastic_deformable",
+      "x": -0.39222660660743713,
+      "y": 8.119524002075195,
+      "labels": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-117",
+      "object_name": "granular_half_plastic_rigid",
+      "x": -0.3080332577228546,
+      "y": 6.135780334472656,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-118",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.5984251499176025,
+      "y": 14.242255210876465,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-119",
+      "object_name": "granular_full_metal_rigid",
+      "x": 1.2246063947677612,
+      "y": 12.41292953491211,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-120",
+      "object_name": "granular_half_plastic_rigid",
+      "x": 0.0981464609503746,
+      "y": 6.042482852935791,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-121",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.798085689544678,
+      "y": 12.031808853149414,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-122",
+      "object_name": "granular_full_plastic_rigid",
+      "x": 2.533632755279541,
+      "y": 14.125309944152832,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-123",
+      "object_name": "granular_half_glass_rigid",
+      "x": 3.1376800537109375,
+      "y": 9.963139533996582,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-124",
+      "object_name": "granular_full_glass_rigid",
+      "x": 2.465524435043335,
+      "y": 12.502788543701172,
+      "labels": {
+        "content": "granular",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-125",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.8617987632751465,
+      "y": 11.821090698242188,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-126",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.5560340881347656,
+      "y": 14.95074462890625,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-127",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.9164557456970215,
+      "y": 14.281832695007324,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-128",
+      "object_name": "granular_half_glass_rigid",
+      "x": 3.3194081783294678,
+      "y": 9.627153396606445,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-129",
+      "object_name": "solid_full_glass_rigid",
+      "x": 2.6164824962615967,
+      "y": 12.080646514892578,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-130",
+      "object_name": "solid_full_plastic_rigid",
+      "x": 3.240654706954956,
+      "y": 14.461649894714355,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-131",
+      "object_name": "solid_full_glass_rigid",
+      "x": 2.896379232406616,
+      "y": 12.11391544342041,
+      "labels": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "full",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-132",
+      "object_name": "granular_half_glass_rigid",
+      "x": 3.1638286113739014,
+      "y": 9.8206148147583,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "glass",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-133",
+      "object_name": "empty_empty_plastic_rigid",
+      "x": 5.560236930847168,
+      "y": 12.172367095947266,
+      "labels": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "empty",
+        "mass": "empty",
+        "material": "plastic",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-134",
+      "object_name": "liquid_full_metal_rigid",
+      "x": 0.6568648815155029,
+      "y": 10.204900741577148,
+      "labels": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "preds": {
+        "content": "liquid",
+        "mass": "full",
+        "material": "metal",
+        "rigidity": "rigid"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-135",
+      "object_name": "solid_half_metal_deformable",
+      "x": 2.2402267456054688,
+      "y": 7.409111499786377,
+      "labels": {
+        "content": "solid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "solid",
+        "mass": "half",
+        "material": "metal",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    },
+    {
+      "id": "sample-136",
+      "object_name": "granular_half_plastic_deformable",
+      "x": 0.16062377393245697,
+      "y": 6.547558307647705,
+      "labels": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "preds": {
+        "content": "granular",
+        "mass": "half",
+        "material": "plastic",
+        "rigidity": "deformable"
+      },
+      "correct": {
+        "content": true,
+        "mass": true,
+        "material": true,
+        "rigidity": true
+      }
+    }
+  ],
+  "text_anchors": [
+    {
+      "axis": "content",
+      "class": "solid",
+      "class_idx": 0,
+      "x": 3.4570932388305664,
+      "y": 13.149333953857422
+    },
+    {
+      "axis": "content",
+      "class": "granular",
+      "class_idx": 1,
+      "x": 1.2329182624816895,
+      "y": 6.161195755004883
+    },
+    {
+      "axis": "content",
+      "class": "liquid",
+      "class_idx": 2,
+      "x": 0.11113716661930084,
+      "y": 9.5329008102417
+    },
+    {
+      "axis": "content",
+      "class": "empty",
+      "class_idx": 3,
+      "x": 4.875942707061768,
+      "y": 10.652763366699219
+    },
+    {
+      "axis": "mass",
+      "class": "full",
+      "class_idx": 0,
+      "x": 1.5322140455245972,
+      "y": 13.512458801269531
+    },
+    {
+      "axis": "mass",
+      "class": "half",
+      "class_idx": 1,
+      "x": 0.5888757109642029,
+      "y": 8.016091346740723
+    },
+    {
+      "axis": "mass",
+      "class": "empty",
+      "class_idx": 2,
+      "x": 4.939426898956299,
+      "y": 10.732755661010742
+    },
+    {
+      "axis": "material",
+      "class": "metal",
+      "class_idx": 0,
+      "x": 1.983707308769226,
+      "y": 8.507898330688477
+    },
+    {
+      "axis": "material",
+      "class": "plastic",
+      "class_idx": 1,
+      "x": -0.7794339060783386,
+      "y": 10.421693801879883
+    },
+    {
+      "axis": "material",
+      "class": "glass",
+      "class_idx": 2,
+      "x": 2.6824042797088623,
+      "y": 10.982598304748535
+    },
+    {
+      "axis": "rigidity",
+      "class": "rigid",
+      "class_idx": 0,
+      "x": 3.0846214294433594,
+      "y": 13.054702758789062
+    },
+    {
+      "axis": "rigidity",
+      "class": "deformable",
+      "class_idx": 1,
+      "x": 3.2894465923309326,
+      "y": 7.500050067901611
+    }
+  ]
+}

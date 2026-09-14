@@ -1,0 +1,6 @@
+.DS_Store
+_t_*.html
+_decode_test.html
+__pycache__/
+*.pyc
+README.md

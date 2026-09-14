@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Learning with Object-centric Representations of Tactile Interactive Perception for Robot Manipulation, CoRL 2026">
+  <title>Object-centric Tactile Interactive Perception for Robot Manipulation</title>
+  <style>
+    :root {
+      --text: #232231;
+      --muted: #5f5d72;
+      --accent: #605ab4;
+      --accent-dark: #4a4499;
+      --accent2: #e09b80;
+      --accent2-dark: #bd5f3c;
+      --bg: #ffffff;
+      --bg-soft: #f7f6fb;
+      --border: #e5e3f1;
+      --radius: 14px;
+      --maxw: 980px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      padding-inline: 16px;
+    }
+    .container { max-width: var(--maxw); margin: 0 auto; }
+
+    /* ---------- Header ---------- */
+    header { text-align: center; padding: 52px 0 6px; }
+    h1.title {
+      font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0 auto 12px;
+      max-width: 900px;
+    }
+    .conference { color: var(--accent); font-weight: 600; font-size: 1.12rem; margin: 4px 0 16px; }
+    .authors { font-size: 1.05rem; margin: 0 auto 4px; max-width: 760px; }
+    .authors a { color: var(--accent); text-decoration: none; }
+    .authors a:hover { text-decoration: underline; }
+    .affiliation { color: var(--muted); font-size: 0.98rem; margin-bottom: 6px; }
+    .equal-note { color: var(--muted); font-size: 0.88rem; margin: 0 0 22px; }
+    sup.eq { font-size: 0.85em; font-weight: 700; line-height: 0; color: var(--accent-dark); margin-left: 1px; }
+
+    .links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 8px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #29263f; color: #fff;
+      padding: 8px 18px; border-radius: 999px;
+      font-size: 0.95rem; font-weight: 500; text-decoration: none;
+      transition: background 0.15s ease;
+    }
+    .btn:hover { background: var(--accent-dark); }
+    .btn svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+
+    /* ---------- Sections ---------- */
+    section { padding: 30px 0 4px; }
+    h2 {
+      font-size: 1.5rem; font-weight: 700; text-align: center;
+      margin: 0 0 6px;
+    }
+    h2::after {
+      content: ""; display: block; width: 54px; height: 4px; border-radius: 2px;
+      margin: 10px auto 14px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .section-sub {
+      text-align: center; color: var(--muted); font-size: 1rem;
+      max-width: 760px; margin: 0 auto 20px;
+    }
+    .section-sub b, .section-sub .em { color: var(--text); }
+    p { margin: 0 0 14px; }
+
+    figure { margin: 0 0 8px; }
+    figure img { width: 100%; max-width: 100%; display: block; border-radius: 10px; }
+    figcaption { color: var(--muted); font-size: 0.92rem; margin-top: 8px; }
+
+    .tagline {
+      text-align: center; font-size: 1.15rem; max-width: 820px;
+      margin: 16px auto 0; line-height: 1.55;
+    }
+    .tagline b { color: var(--accent-dark); }
+
+    /* ---------- Stat tiles ---------- */
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      max-width: 860px; margin: 28px auto 0;
+    }
+    .stat {
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 18px 16px; text-align: center;
+    }
+    .stat .value {
+      font-size: 2.3rem; font-weight: 650; line-height: 1.1;
+      color: var(--accent-dark); letter-spacing: -0.01em;
+    }
+    .stat .value .from { color: var(--muted); font-weight: 500; font-size: 1.5rem; }
+    .stat .label { color: var(--muted); font-size: 0.92rem; margin-top: 8px; line-height: 1.45; }
+    @media (max-width: 720px) { .stats { grid-template-columns: 1fr; } }
+
+    /* ---------- Pipeline cards ---------- */
+    .pipeline {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      margin-top: 4px;
+    }
+    .step {
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px;
+    }
+    .step .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--accent); color: #fff; font-size: 0.85rem; font-weight: 650;
+      margin-bottom: 8px;
+    }
+    .step h3 { margin: 0 0 6px; font-size: 1.02rem; font-weight: 650; }
+    .step p { margin: 0; color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
+    @media (max-width: 720px) { .pipeline { grid-template-columns: 1fr; } }
+
+    /* ---------- Video ---------- */
+    .video-wrap {
+      position: relative; width: 100%; max-width: 860px; margin: 0 auto;
+      border-radius: var(--radius); overflow: hidden; background: #000;
+    }
+    .video-wrap video { display: block; width: 100%; height: auto; }
+
+    .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .video-grid.two { grid-template-columns: repeat(2, 1fr); max-width: 860px; margin: 0 auto; }
+    .video-grid .cell { display: flex; flex-direction: column; gap: 8px; }
+    .video-grid video { width: 100%; border-radius: 10px; background: #000; display: block; }
+    .cell-label { font-size: 0.92rem; color: var(--muted); text-align: center; line-height: 1.45; }
+    .cell-label b { color: var(--text); }
+    .speed-tag {
+      display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px;
+      background: #ecebf5; color: var(--accent-dark); font-size: .72rem; font-weight: 650;
+      letter-spacing: .02em; vertical-align: middle; white-space: nowrap;
+    }
+    .ok { color: #15803d; font-weight: 650; }
+    .fail { color: #b91c1c; font-weight: 650; }
+    @media (max-width: 720px) {
+      .video-grid, .video-grid.two { grid-template-columns: 1fr; }
+    }
+
+    /* ---------- Framework row ---------- */
+    .framework-row {
+      display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: 30px; align-items: center; margin: 2px 0 6px;
+    }
+    .framework-row figure { margin: 0; }
+    .framework-points { display: flex; flex-direction: column; gap: 18px; }
+    .fp b { display: block; color: var(--text); font-weight: 650; margin-bottom: 3px; }
+    .fp span { color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+    @media (max-width: 720px) {
+      .framework-row { grid-template-columns: 1fr; gap: 20px; }
+      .framework-row figure img { max-width: 380px; margin: 0 auto; }
+    }
+
+    /* ---------- Versus panel ---------- */
+    .versus {
+      max-width: 860px; margin: 0 auto;
+      border: 1px solid #f0d5c8; border-radius: var(--radius);
+      padding: 18px; background: #fdf8f5;
+    }
+    .versus .video-grid { margin-top: 4px; }
+    .versus-title { text-align: center; font-weight: 650; margin: 0 0 12px; font-size: 1.02rem; color: var(--accent2-dark); }
+
+    /* ---------- Collapsibles ---------- */
+    details {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg-soft); margin: 14px 0; overflow: hidden;
+    }
+    details summary {
+      cursor: pointer; padding: 14px 20px; font-weight: 600; font-size: 1rem;
+      list-style: none; display: flex; align-items: center; gap: 8px;
+    }
+    details summary::-webkit-details-marker { display: none; }
+    details summary::before { content: "▸"; color: var(--accent); transition: transform 0.15s; }
+    details[open] summary::before { transform: rotate(90deg); }
+    details .inner { padding: 4px 20px 18px; }
+    details .inner p { color: var(--muted); font-size: 0.95rem; }
+
+    /* ---------- BibTeX ---------- */
+    pre.bibtex {
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 18px 20px;
+      font-size: 0.86rem; line-height: 1.5; overflow-x: auto;
+      font-family: "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    footer {
+      margin-top: 42px; padding: 24px 0 32px;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.9rem; text-align: center;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* Research narrative: clear evidence, quiet surfaces, readable figures. */
+    :root { --maxw: 1080px; --accent: #6155ad; --accent-dark: #493c91; --muted: #615e70; }
+    section { padding: 64px 0 8px; scroll-margin-top: 76px; }
+    header { padding-top: 44px; }
+    h1.title { max-width: 980px; font-size: clamp(1.65rem, 3.2vw, 2.4rem); letter-spacing: -.025em; }
+    h2 { font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -.025em; }
+    h2::after { display: none; }
+    h3 { line-height: 1.35; }
+    a { color: var(--accent-dark); text-underline-offset: 3px; }
+    button { font: inherit; cursor: pointer; }
+    a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+    .skip-link { position: fixed; left: 16px; top: -80px; z-index: 20; background: white; padding: 10px 16px; }
+    .skip-link:focus { top: 12px; }
+    .unavailable { background: #efedf4; color: var(--muted); }
+    .unavailable small { font-size: .8rem; }
+    .section-nav { display: flex; justify-content: center; gap: clamp(14px,4vw,34px); position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.97); border-bottom: 1px solid var(--border); margin: 22px -16px 0; padding: 13px 16px; }
+    .section-nav a { font-size: .9rem; text-decoration: none; font-weight: 600; }
+    .section-sub { max-width: 780px; margin: 12px auto 26px; }
+    .section-sub:has(> b:first-child) { text-align: left; max-width: none; margin-top: 38px !important; }
+    .section-sub > b:first-child { display: block; font-size: 1.2rem; margin-bottom: 7px; }
+    .eyebrow { font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-dark); text-align: center; margin-bottom: 12px; }
+    .hero { padding-top: 38px; }
+    .hero h2 { max-width: 760px; margin: auto; font-size: clamp(1.9rem,4vw,3rem); line-height: 1.15; }
+    .hero .section-sub { font-size: 1.1rem; max-width: 730px; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .hero-card { margin: 0; min-width: 0; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .hero-card video { width: 100%; display: block; background: #181722; aspect-ratio: 16/9; object-fit: contain; }
+    .hero-card figcaption { padding: 16px 20px 20px; margin: 0; }
+    .hero-card h3 { font-size: 1.15rem; color: var(--text); margin: 6px 0; }
+    .hero-card p { margin: 0; }
+    .property-label { font-size: .8rem; font-weight: 700; color: var(--accent-dark); letter-spacing: .04em; text-transform: uppercase; }
+    .hero-note { text-align: center; font-size: .85rem; color: var(--muted); margin: 14px auto 0; max-width: 740px; }
+    .stats { max-width: none; margin-top: 30px; gap: 0; padding: 24px 0; border-block: 1px solid var(--border); }
+    .stat { background: none; border: 0; border-radius: 0; padding: 4px 22px; }
+    .stat + .stat { border-left: 1px solid var(--border); }
+    .stat .value { font-size: 2.4rem; }
+    .stat a { display: inline-block; margin-top: 8px; font-size: .85rem; }
+    .pipeline { gap: 0; border-block: 1px solid var(--border); margin: 26px 0; }
+    .step { background: none; border: 0; border-radius: 0; padding: 24px; }
+    .step + .step { border-left: 1px solid var(--border); }
+    .step p { font-size: 1rem; }
+    .step h3 { font-size: 1.1rem; }
+    .video-grid { gap: 20px; }
+    .cell { min-width: 0; }
+    .cell-label { text-align: left; font-size: .9rem; }
+    .video-grid video { aspect-ratio: 16/9; object-fit: contain; }
+    #representation .video-grid video { aspect-ratio: 4/3; }
+    .video-grid.two video { aspect-ratio: 16/9; }
+    .versus { max-width: none; padding: 22px; margin-block: 28px; }
+    .versus .video-grid.two { max-width: none; }
+    .versus-title { font-size: 1.2rem; color: var(--text); }
+    .reading-note { font-size: .9rem; color: var(--muted); max-width: 780px; margin: 14px auto 24px; }
+    .results-chart { padding: 26px; background: var(--bg-soft); border: 1px solid var(--border); border-radius: 14px; margin: 24px 0; }
+    .results-chart h3 { margin: 0 0 8px; }
+    .chart-key { display: flex; gap: 22px; flex-wrap: wrap; font-size: .9rem; color: var(--muted); margin-bottom: 24px; }
+    .chart-key span::before { content: ''; display: inline-block; width: 12px; height: 12px; margin-right: 7px; background: #9c98aa; }
+    .chart-key span:last-child::before { background: var(--accent); }
+    .result-row { display: grid; grid-template-columns: 210px 1fr; gap: 24px; margin-bottom: 22px; align-items: center; }
+    .result-row strong { font-size: .95rem; }
+    .result-row small { display: block; font-size: .85rem; color: var(--muted); font-weight: 400; }
+    .bar-track { background: #e9e6f0; height: 26px; margin: 6px 0; border-radius: 3px; position: relative; }
+    .bar { background: #9c98aa; height: 100%; border-radius: 3px; }
+    .bar.ours { background: var(--accent); }
+    .bar-value { position: absolute; right: 8px; top: 0; font-size: .85rem; line-height: 26px; color: #272333; font-weight: 700; background: rgba(255,255,255,.93); padding-inline: 5px; }
+    .results-chart figcaption { margin-top: 22px; max-width: 820px; }
+    .figure-link { display: block; font-size: .85rem; text-align: right; margin: 8px 0 20px; }
+    .method-flow { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .method-stage { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+    .method-stage h3 { margin: 0 0 20px; }
+    .method-stage ol { padding-left: 22px; margin-bottom: 0; }
+    .method-stage li { padding: 0 0 16px 7px; }
+    .method-stage li:last-child { padding-bottom: 0; }
+    .method-stage li::marker { color: var(--accent); font-weight: 700; }
+    .method-stage strong { display: block; }
+    .method-stage span { color: var(--muted); font-size: .95rem; }
+    .figure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .umap-panel { position: relative; overflow: hidden; aspect-ratio: 675.5 / 514; }
+    .umap-panel img { position: absolute; top: 0; width: 400%; max-width: none; border-radius: 0; left: calc(var(--panel) * -100%); }
+    .figure-grid figcaption { text-align: center; color: var(--text); font-weight: 600; }
+    .token-window { position: relative; overflow: hidden; aspect-ratio: 1708 / 197.333; }
+    .token-window img { position: absolute; width: 100%; top: calc(var(--example) * -100%); border-radius: 0; }
+    .example-picker { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+    .example-picker button { padding: 8px 16px; border-radius: 99px; border: 1px solid var(--border); background: white; color: var(--text); font-size: .9rem; }
+    .example-picker button[aria-pressed="true"] { color: white; background: var(--accent-dark); border-color: var(--accent-dark); }
+    .property-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+    .property-list span { background: var(--bg-soft); border: 1px solid var(--border); padding: 6px 12px; font-size: .9rem; border-radius: 6px; }
+    .token-detail { color: var(--muted); font-size: .95rem; }
+    details { background: #faf9fc; margin-block: 20px; }
+    details .inner { padding-top: 10px; }
+    details .inner figure { margin-bottom: 24px; }
+    .video-wrap { max-width: 960px; }
+    .motion-control { display: block; margin: 18px auto 0; border: 1px solid var(--border); border-radius: 99px; padding: 8px 16px; background: white; color: var(--accent-dark); font-size: .85rem; }
+    [hidden] { display: none !important; }
+    @media (max-width: 720px) {
+      header { padding-top: 28px; }
+      section { padding-top: 44px; }
+      .section-nav { gap: 18px; }
+      .section-nav a { font-size: .8rem; }
+      .hero-grid, .method-flow, .figure-grid { grid-template-columns: 1fr; }
+      .hero-grid { gap: 22px; }
+      .hero-card video { aspect-ratio: 16/9; }
+      .stats { grid-template-columns: 1fr; padding: 0; }
+      .stat { padding: 20px; }
+      .stat + .stat { border-left: 0; border-top: 1px solid var(--border); }
+      .step { padding: 22px 8px; }
+      .step + .step { border-left: 0; border-top: 1px solid var(--border); }
+      .results-chart { padding: 18px; }
+      .result-row { grid-template-columns: 1fr; gap: 6px; }
+      .video-grid:not(.two) { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+      .video-grid:not(.two) .cell { flex: 0 0 88%; scroll-snap-align: start; }
+      .token-scroll { overflow-x: auto; }
+      .token-window { min-width: 800px; }
+      .section-sub { text-align: left; }
+      .hero .section-sub { text-align: center; }
+      .versus { padding: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    .embedding-explorer { margin-top: 42px; padding: 28px; border: 1px solid var(--border); border-radius: var(--radius); background: #fff; }
+    .embedding-intro { max-width: 740px; margin: 0 auto; text-align: center; }
+    .embedding-intro .eyebrow { font-size: .75rem; }
+    .embedding-intro h3 { font-size: 1.5rem; letter-spacing: -.02em; margin: 0 0 12px; }
+    .embedding-intro > p:last-child { color: var(--muted); font-size: 1rem; }
+    .embedding-controls { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 7px; margin: 22px 0 16px; }
+    .embedding-control-label { font-size: .85rem; color: var(--muted); margin-right: 6px; }
+    .embedding-controls button { border: 1px solid var(--border); background: var(--bg-soft); color: var(--text); padding: 8px 15px; border-radius: 99px; font-size: .9rem; }
+    .embedding-controls button[aria-pressed="true"] { background: var(--accent-dark); border-color: var(--accent-dark); color: white; }
+    .embedding-controls button:hover { border-color: var(--accent); }
+    .embedding-figure { max-width: 550px; margin: 0 auto; }
+    .embedding-figure figcaption { text-align: center; font-size: .9rem; min-height: 2.8em; margin-top: 12px; }
+    .embedding-key { text-align: center; font-size: .85rem; color: var(--text); margin: 12px auto 8px; }
+    .embedding-key span { margin-inline: 8px; }
+    .embedding-note { text-align: center; font-size: .85rem; color: var(--muted); margin: 0 auto; }
+    .embedding-explorer .figure-link { text-align: center; margin-bottom: 0; }
+    @media (max-width: 720px) {
+      .embedding-explorer { padding: 22px 12px; }
+      .embedding-controls { gap: 6px; }
+      .embedding-controls button { font-size: .85rem; padding: 8px 11px; }
+      .embedding-control-label { flex-basis: 100%; text-align: center; margin: 0 0 3px; }
+      .embedding-key span { margin-inline: 3px; }
+    }
+
+    .embedding-figure { max-width: 650px; }
+    #embedding-plot { display: block; width: 100%; height: auto; overflow: visible; }
+    .embedding-legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 16px; min-height: 38px; margin: 0 0 6px; }
+    .embedding-legend button { display: inline-flex; align-items: center; gap: 7px; border: 1px solid transparent; padding: 4px 8px; border-radius: 6px; background: white; color: var(--text); font-size: .85rem; }
+    .embedding-legend button[aria-pressed="true"] { border-color: var(--accent-dark); background: var(--bg-soft); }
+    .embedding-swatch { width: 11px; height: 11px; border-radius: 50%; border: 1px solid #0003; }
+    .embedding-inspector { max-width: 680px; margin: 0 auto 12px; min-height: 112px; padding: 14px 18px; border-radius: 10px; background: var(--bg-soft); border: 1px solid var(--border); font-size: .9rem; line-height: 1.55; }
+    .embedding-inspector strong { display: block; color: var(--text); }
+    .embedding-inspector p { margin: 4px 0 0; color: var(--muted); overflow-wrap: anywhere; }
+    .embedding-point, .embedding-anchor { cursor: pointer; outline: none; }
+    .embedding-point circle, .embedding-anchor .anchor-shape { transition: fill .2s, opacity .2s; }
+    .embedding-point .point-ring { opacity: 0; }
+    .embedding-point:hover .point-ring, .embedding-point:focus .point-ring, .embedding-point[data-selected="true"] .point-ring { opacity: 1; }
+    .embedding-anchor:focus .anchor-shape, .embedding-anchor:hover .anchor-shape { stroke-width: 3; }
+    .embedding-anchor text { font: 600 15px "Helvetica Neue",Arial,sans-serif; fill: #29263f; paint-order: stroke; stroke: white; stroke-width: 5px; stroke-linejoin: round; }
+    @media (prefers-reduced-motion: reduce) { .embedding-point circle, .embedding-anchor .anchor-shape { transition: none; } }
+    @media (max-width: 480px) { .embedding-inspector { min-height: 150px; padding: 12px; } .embedding-legend { gap: 4px; } }
+    /* ---------- Pipeline figure ---------- */
+    .pf {
+      margin: 26px 0 8px; border: 1px solid var(--border);
+      border-radius: var(--radius); background: var(--bg-soft);
+      padding: 22px 20px 18px;
+    }
+    .pf-half + .pf-half { margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--border); }
+    .pf-half-title {
+      display: flex; align-items: center; gap: 9px;
+      font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent-dark); margin: 0 0 14px;
+    }
+    .pf-half-title .pf-tag {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 6px;
+      background: var(--accent); color: #fff; font-size: .72rem; letter-spacing: 0;
+    }
+    .pf-half:nth-child(2) .pf-half-title .pf-tag { background: var(--accent2-dark); }
+    .pf-half:nth-child(2) .pf-half-title { color: var(--accent2-dark); }
+    .pf-flow { display: flex; align-items: stretch; gap: 6px; }
+    .pf-stage { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+    .pf-art {
+      background: #fff; border: 1px solid var(--border); border-radius: 10px;
+      padding: 10px; flex: 1 1 auto; display: flex; align-items: center; justify-content: center;
+    }
+    .pf-art svg { width: 100%; height: auto; display: block; }
+    .pf-thumbs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 100%; }
+    .pf-thumbs.three { grid-template-columns: repeat(3, 1fr); }
+    .pf-thumbs img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 5px; display: block; }
+    .pf-thumb { position: relative; }
+    .pf-thumb span {
+      position: absolute; left: 3px; bottom: 3px; right: 3px;
+      font-size: .58rem; font-weight: 600; color: #fff; text-align: center;
+      background: rgba(20,18,32,.62); border-radius: 3px; padding: 1px 2px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .pf-label { text-align: center; }
+    .pf-label b { display: block; font-size: .85rem; font-weight: 650; color: var(--text); line-height: 1.3; }
+    .pf-label span { display: block; font-size: .74rem; color: var(--muted); line-height: 1.35; margin-top: 2px; }
+    .pf-arrow { flex: 0 0 26px; display: flex; align-items: center; justify-content: center; }
+    .pf-arrow svg { width: 20px; height: 20px; }
+    .pf-arrow path { stroke: var(--accent); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .pf-half:nth-child(2) .pf-arrow path { stroke: var(--accent2-dark); }
+    @media (max-width: 760px) {
+      .pf-flow { flex-direction: column; }
+      .pf-arrow { flex-basis: 22px; }
+      .pf-arrow svg { transform: rotate(90deg); }
+      .pf-stage { gap: 6px; }
+    }
+
+    /* ---------- Decision explorer ---------- */
+    .dx {
+      margin: 18px 0 6px; border: 1px solid var(--border);
+      border-radius: var(--radius); background: var(--bg-soft); padding: 20px;
+    }
+    .dx-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+    .dx-rule h4 {
+      margin: 0 0 10px; font-size: .78rem; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase; color: var(--accent-dark);
+    }
+    .dx-maps { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dx-map {
+      display: flex; align-items: center; gap: 7px; background: #fff;
+      border: 1px solid var(--border); border-radius: 9px; padding: 6px 10px 6px 7px;
+      font-size: .82rem; color: var(--muted);
+    }
+    .dx-map b { color: var(--text); font-weight: 650; }
+    .dx-swatch { width: 15px; height: 15px; border-radius: 4px; flex: none; border: 1px solid rgba(0,0,0,.14); }
+    .dx-map svg { width: 26px; height: 20px; flex: none; }
+    .dx-pickers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .dx-picker > span {
+      display: block; font-size: .74rem; font-weight: 650; color: var(--muted);
+      text-transform: uppercase; letter-spacing: .07em; margin-bottom: 7px;
+    }
+    .dx-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dx-btns button {
+      font: inherit; font-size: .85rem; cursor: pointer;
+      background: #fff; color: var(--text);
+      border: 1px solid var(--border); border-radius: 999px; padding: 6px 14px;
+    }
+    .dx-btns button:hover { border-color: var(--accent); }
+    .dx-btns button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .dx-btns button[disabled] { opacity: .42; cursor: not-allowed; }
+    .dx-btns button[disabled]:hover { border-color: var(--border); }
+    .dx-out {
+      margin-top: 18px; background: #fff; border: 1px solid var(--border);
+      border-radius: 11px; padding: 16px 18px;
+      display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 20px; align-items: start;
+    }
+    .dx-clip video { width: 100%; aspect-ratio: 1400/900; border-radius: 9px; background: #000; display: block; }
+    .dx-clip-note { margin: 8px 0 0; font-size: .82rem; color: var(--muted); line-height: 1.45; }
+    .dx-clip-empty {
+      display: none; align-items: center; justify-content: center; text-align: center;
+      aspect-ratio: 1400/900; border-radius: 9px; background: var(--bg-soft);
+      border: 1px dashed var(--border); color: var(--muted); font-size: .88rem; padding: 16px;
+    }
+    .dx-clip[data-empty="true"] .clip-frame { display: none; }
+    .dx-clip[data-empty="true"] .dx-clip-empty { display: flex; }
+    .clip-frame { position: relative; }
+    .speed-badge {
+      position: absolute; top: 8px; right: 8px; pointer-events: none;
+      background: rgba(20,18,32,.74); color: #fff; font-size: .72rem; font-weight: 650;
+      letter-spacing: .02em; padding: 3px 9px; border-radius: 999px;
+    }
+    .dx-side { display: flex; flex-direction: column; gap: 10px; }
+    .dx-verdict { font-size: 1.02rem; font-weight: 650; color: var(--text); margin: 0 0 4px; line-height: 1.4; }
+    .dx-verdict em { font-style: normal; color: var(--accent-dark); }
+    .dx-why { margin: 0; font-size: .88rem; color: var(--muted); line-height: 1.5; }
+    .dx-scene { flex: none; }
+    .dx-scene svg { width: 190px; height: auto; display: block; }
+    @media (max-width: 720px) {
+      .dx-rules, .dx-pickers { grid-template-columns: 1fr; }
+      .dx-out { grid-template-columns: 1fr; gap: 14px; }
+      .dx-scene svg { width: 100%; max-width: 240px; margin: 0 auto; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#overview">Skip to content</a>
+
+  <header class="container">
+    <h1 class="title">Learning with Object-centric Representations of Tactile Interactive Perception for Robot Manipulation</h1>
+    <p class="conference">CoRL 2026</p>
+    <p class="authors">
+      <span>Xinyi Yang<sup class="eq">*</sup></span>,
+      <span>Zilin Si<sup class="eq">*</sup></span>,
+      <span>Zhuowei Xu</span>,
+      <span>Zeynep Temel</span>,
+      <span>Oliver Kroemer</span>
+    </p>
+    <p class="affiliation">Robotics Institute, Carnegie Mellon University</p>
+    <p class="equal-note"><sup class="eq">*</sup> Equal contribution</p>
+
+    <div class="links">
+      <span class="btn unavailable">
+        <svg viewBox="0 0 384 512"><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM112 256H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H272c8.8 0 16 7.2 16 16s-7.2 16-16 16H112c-8.8 0-16-7.2-16-16s7.2-16 16-16z"/></svg>
+        Paper <small>Coming soon</small>
+      </span>
+      <a class="btn" href="#video">
+        <svg viewBox="0 0 576 512"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
+        Video
+      </a>
+      <span class="btn unavailable">Code <small>Coming soon</small></span>
+    </div>
+  </header>
+  <nav class="section-nav" aria-label="Page sections">
+    <a href="#overview">Overview</a><a href="#results">Results</a><a href="#method">Method</a><a href="#video">Video</a><a href="#bibtex">Citation</a>
+  </nav>
+  <main>
+
+
+  <section class="container hero" id="overview" aria-labelledby="hero-title">
+    <p class="eyebrow">Tactile exploration → Object context → Adaptive action</p>
+    <h2 id="hero-title">Touch reveals how an object<br>should be handled.</h2>
+    <p class="section-sub">Appearance alone can hide what matters for manipulation. Our framework learns physical object properties through touch, then uses them to guide how the robot grasps, moves, and places each object.</p>
+    <div class="hero-grid">
+      <figure class="hero-card"><video controls muted loop playsinline preload="none" poster="static/images/posters/pouring_success_1.jpg" aria-label="Filled container: pour before recycling" src="static/videos/pouring_success_1.mp4"></video>
+        <figcaption><span class="property-label">Filled container</span><span class="speed-tag">4× speed</span><h3>Pour first. Then recycle.</h3><p>Fill-level context guides the robot to empty the container before placing it in the bin.</p></figcaption>
+      </figure>
+      <figure class="hero-card"><video controls muted loop playsinline preload="none" poster="static/images/posters/pouring_empty_success.jpg" aria-label="Empty container: recycle directly" src="static/videos/pouring_empty_success.mp4"></video>
+        <figcaption><span class="property-label">Empty container</span><span class="speed-tag">4× speed</span><h3>Recycle directly.</h3><p>The robot skips pouring when the inferred object properties indicate that the container is empty.</p></figcaption>
+      </figure>
+    </div>
+    <p class="hero-note">Two representative rollouts show how fill-level context changes the action sequence. These examples are not a matched comparison of the same container.</p>
+    <button class="motion-control" id="motion-toggle" type="button" hidden>Play visible demo loops</button>
+    <div class="stats">
+      <div class="stat"><div class="value">90%</div><div class="label">Average object-property estimation accuracy<br>Reported for seen and unseen objects</div><a href="#representation">Explore the representation</a></div>
+      <div class="stat"><div class="value">+52 pp</div><div class="label">Unseen rearrangement task success<br>15% without context → 67% with context</div><a href="#quantitative">See task success rates</a></div>
+      <div class="stat"><div class="value">3 tasks</div><div class="label">Rearrangement, pouring, and box opening<br>Parallel-jaw gripper and DeltaHand</div><a href="#results">Watch the robot results</a></div>
+    </div>
+  </section>
+
+  <section class="container" id="results">
+    <p class="eyebrow">Real-world manipulation</p><h2>Object Properties Change Robot Behavior</h2>
+    <p class="section-sub">Across three tasks, object context guides both strategy selection and execution.
+      Watch the grasp, the destination, and whether the robot acts or skips a step.</p>
+
+
+    <figure class="results-chart" id="quantitative">
+      <h3>Task success, with and without object context</h3>
+      <p class="reading-note" style="margin-left:0">Successfully completing the task requires both the correct strategy and successful physical execution.</p>
+      <div class="chart-key" aria-hidden="true"><span>Without object context</span><span>Text context + online vibrotactile sensing</span></div>
+<div class="result-row"><strong>Rearrangement<small>Seen objects</small></strong><div role="img" aria-label="Without context: 41 percent (22/54). With text context and online vibrotactile sensing: 83 percent (45/54)."><div class="bar-track"><div class="bar" style="width:41%"></div><span class="bar-value">41%</span></div><div class="bar-track"><div class="bar ours" style="width:83%"></div><span class="bar-value">83%</span></div></div></div><div class="result-row"><strong>Rearrangement<small>Unseen objects</small></strong><div role="img" aria-label="Without context: 15 percent (8/54). With text context and online vibrotactile sensing: 67 percent (36/54)."><div class="bar-track"><div class="bar" style="width:15%"></div><span class="bar-value">15%</span></div><div class="bar-track"><div class="bar ours" style="width:67%"></div><span class="bar-value">67%</span></div></div></div><div class="result-row"><strong>Pouring &amp; recycling<small>Seen + unseen objects</small></strong><div role="img" aria-label="Without context: 47 percent (14/30). With text context and online vibrotactile sensing: 77 percent (23/30)."><div class="bar-track"><div class="bar" style="width:47%"></div><span class="bar-value">47%</span></div><div class="bar-track"><div class="bar ours" style="width:77%"></div><span class="bar-value">77%</span></div></div></div><div class="result-row"><strong>Box opening<small>DeltaHand</small></strong><div role="img" aria-label="Without context: 25 percent (12/48). With text context and online vibrotactile sensing: 100 percent (48/48)."><div class="bar-track"><div class="bar" style="width:25%"></div><span class="bar-value">25%</span></div><div class="bar-track"><div class="bar ours" style="width:100%"></div><span class="bar-value">100%</span></div></div></div><figcaption>Overall task success from Fig. 7 and Table 2 of the paper, rounded to whole percentages. Rearrangement uses 54 trials per split and method, pouring 30 trials per method, and box opening 48 trials per method. “Text context” uses property descriptors inferred from tactile exploration, not ground-truth labels. The baseline retains object position but has no object-property context.</figcaption>
+    </figure>
+    <p class="section-sub" style="margin-top:22px"><b>Multi-object rearrangement.</b>
+      Two independent decisions follow from two different properties. Rigidity determines how the
+      object is grasped, and contents determine where it belongs. An empty container is the one
+      case that overrides the destination.</p>
+
+    <div class="dx" id="decision-explorer">
+      <div class="dx-rules">
+        <div class="dx-rule">
+          <h4>Rigidity decides the grasp</h4>
+          <div class="dx-maps">
+            <span class="dx-map">
+              <svg viewBox="0 0 26 20" aria-hidden="true"><rect x="8" y="10" width="10" height="8" rx="1.5" fill="#d9d6ea"/><rect x="9" y="2" width="3.4" height="6" rx="1.2" fill="#6155ad"/><rect x="13.6" y="2" width="3.4" height="6" rx="1.2" fill="#6155ad"/></svg>
+              <span><b>Rigid</b> top grasp</span>
+            </span>
+            <span class="dx-map">
+              <svg viewBox="0 0 26 20" aria-hidden="true"><rect x="10" y="4" width="6" height="12" rx="1.5" fill="#d9d6ea"/><rect x="3" y="7" width="4" height="6" rx="1.2" fill="#6155ad"/><rect x="19" y="7" width="4" height="6" rx="1.2" fill="#6155ad"/></svg>
+              <span><b>Deformable</b> side grasp</span>
+            </span>
+          </div>
+        </div>
+        <div class="dx-rule">
+          <h4>Contents decide the destination</h4>
+          <div class="dx-maps">
+            <span class="dx-map"><span class="dx-swatch" style="background:#e8b62c"></span><span><b>Liquid</b> yellow</span></span>
+            <span class="dx-map"><span class="dx-swatch" style="background:#8b8ac9"></span><span><b>Granular</b> purple</span></span>
+            <span class="dx-map"><span class="dx-swatch" style="background:#7cb96a"></span><span><b>Solid</b> green</span></span>
+            <span class="dx-map"><span class="dx-swatch" style="background:#b8b5c6"></span><span><b>Empty</b> recycle bin</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dx-pickers">
+        <div class="dx-picker">
+          <span id="dx-rig-label">Rigidity</span>
+          <div class="dx-btns" role="group" aria-labelledby="dx-rig-label" data-group="rigidity">
+            <button type="button" data-value="rigid" aria-pressed="true">Rigid</button>
+            <button type="button" data-value="deformable" aria-pressed="false">Deformable</button>
+          </div>
+        </div>
+        <div class="dx-picker">
+          <span id="dx-con-label">Contents</span>
+          <div class="dx-btns" role="group" aria-labelledby="dx-con-label" data-group="contents">
+            <button type="button" data-value="liquid" aria-pressed="true">Liquid</button>
+            <button type="button" data-value="granular" aria-pressed="false">Granular</button>
+            <button type="button" data-value="solid" aria-pressed="false">Solid</button>
+            <button type="button" data-value="empty" aria-pressed="false">Empty</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dx-out">
+        <div class="dx-clip" id="dx-clip" data-empty="false">
+          <div class="clip-frame">
+            <video id="dx-video" controls muted loop playsinline preload="none" aria-label="Rearrangement rollout for the selected object properties"></video>
+            <span class="speed-badge" id="dx-speed" hidden></span>
+          </div>
+          <div class="dx-clip-empty">No rollout clip was recorded for this combination. The rule on the right still applies.</div>
+          <p class="dx-clip-note" id="dx-clip-note"></p>
+        </div>
+        <div class="dx-side">
+        <div class="dx-scene" aria-hidden="true">
+          <svg viewBox="0 0 200 150">
+            <g class="dx-slot" data-slot="liquid">
+              <rect x="10" y="20" width="52" height="30" rx="5" fill="#e8b62c" stroke="#232231" stroke-width="0" opacity=".3"/>
+              <text x="36" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Yellow</text>
+            </g>
+            <g class="dx-slot" data-slot="granular">
+              <rect x="74" y="20" width="52" height="30" rx="5" fill="#8b8ac9" stroke="#232231" stroke-width="0" opacity=".3"/>
+              <text x="100" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Purple</text>
+            </g>
+            <g class="dx-slot" data-slot="solid">
+              <rect x="138" y="20" width="52" height="30" rx="5" fill="#7cb96a" stroke="#232231" stroke-width="0" opacity=".3"/>
+              <text x="164" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Green</text>
+            </g>
+            <line x1="6" y1="53" x2="194" y2="53" stroke="#c9c5dc" stroke-width="2" stroke-linecap="round"/>
+            <g class="dx-slot" data-slot="empty">
+              <path d="M66 86 h68 l-9 30 h-50 z" fill="#b8b5c6" stroke="#232231" stroke-width="0" opacity=".3"/>
+              <text x="100" y="132" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Recycle bin</text>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <p class="dx-verdict" id="dx-verdict" aria-live="polite"></p>
+          <p class="dx-why" id="dx-why"></p>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="versus" style="margin-top:20px">
+      <h3 class="versus-title">Rearrangement failure modes</h3>
+      <p class="reading-note">Two representative failures show what goes wrong when the strategy does not match the object. Playback is 4× speed.</p>
+      <div class="video-grid two">
+        <div class="cell">
+          <div class="clip-frame">
+            <video aria-label="rearrangement failed grasp" poster="static/images/posters/rr_fail_grasp.jpg" controls muted loop playsinline preload="none" style="aspect-ratio:1400/900" src="static/videos/rr_fail_grasp.mp4"></video>
+            <span class="speed-badge">4× speed</span>
+          </div>
+          <span class="cell-label"><span class="fail">✗ Failed grasp.</span> The chosen grasp does not hold the object.</span>
+        </div>
+        <div class="cell">
+          <div class="clip-frame">
+            <video aria-label="rearrangement wrong strategy" poster="static/images/posters/rr_fail_strategy.jpg" controls muted loop playsinline preload="none" style="aspect-ratio:1400/900" src="static/videos/rr_fail_strategy.mp4"></video>
+            <span class="speed-badge">4× speed</span>
+          </div>
+          <span class="cell-label"><span class="fail">✗ Wrong strategy.</span> The object is handled as if it had different properties.</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="reading-note" style="margin-top:20px">Three consecutive placements from a single rearrangement episode.</p>
+    <div class="video-grid">
+      <div class="cell">
+        <video aria-label="rearrangement first placement" poster="static/images/posters/rearrangement_1.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_1.mp4"></video>
+        <span class="cell-label"><b>First placement.</b> Liquid-filled rigid jar. Top grasp, yellow area.<span class="speed-tag">4× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="rearrangement second placement" poster="static/images/posters/rearrangement_2.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_2.mp4"></video>
+        <span class="cell-label"><b>Second placement.</b> Liquid-filled deformable bottle. Side grasp, yellow area.<span class="speed-tag">4× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="rearrangement third placement" poster="static/images/posters/rearrangement_3.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_3.mp4"></video>
+        <span class="cell-label"><b>Third placement.</b> Granular-filled deformable can. Side grasp, purple area.<span class="speed-tag">4× speed</span></span>
+      </div>
+    </div>
+
+    <p class="section-sub" style="margin-top:26px"><b>Pouring &amp; recycling.</b>
+      The policy selects its strategy from the inferred fill level. Filled containers are
+      poured into the sink before recycling, while empty containers are recycled directly.</p>
+    <div class="video-grid">
+      <div class="cell">
+        <video aria-label="pouring success 1" poster="static/images/posters/pouring_success_1.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_success_1.mp4"></video>
+        <span class="cell-label"><span class="ok">✓</span> Filled container, poured then recycled<span class="speed-tag">4× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="pouring success 2" poster="static/images/posters/pouring_success_2.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_success_2.mp4"></video>
+        <span class="cell-label"><span class="ok">✓</span> Filled container, poured then recycled<span class="speed-tag">4× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="pouring empty success" poster="static/images/posters/pouring_empty_success.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_empty_success.mp4"></video>
+        <span class="cell-label"><span class="ok">✓</span> Empty container, recycled directly<span class="speed-tag">4× speed</span></span>
+      </div>
+    </div>
+
+    <div class="versus" style="margin-top:20px">
+      <h3 class="versus-title">Why object context matters</h3><p class="reading-note">Representative failure and success rollouts illustrate strategy selection; these are not synchronized, matched trials.</p>
+      <div class="video-grid two">
+        <div class="cell">
+          <video aria-label="pouring failure" poster="static/images/posters/pouring_failure.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_failure.mp4"></video>
+          <span class="cell-label"><span class="fail">✗ Without context.</span> An inappropriate action sequence spills the liquid<span class="speed-tag">4× speed</span></span>
+        </div>
+        <div class="cell">
+          <video aria-label="pouring apple cider success" poster="static/images/posters/pouring_apple_cider_success.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_apple_cider_success.mp4"></video>
+          <span class="cell-label"><span class="ok">✓ With context (ours).</span> An unseen container handled with the correct strategy<span class="speed-tag">4× speed</span></span>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-sub" style="margin-top:26px"><b>Box opening with the DeltaHand.</b>
+      For the DeltaHand, exploration also captures weight-related properties that distinguish visually identical boxes. The hand opens the box
+      containing screws and takes no action on the empty one.</p>
+    <div class="video-grid two">
+      <div class="cell">
+        <video aria-label="box opening" poster="static/images/posters/box_opening.jpg" controls muted loop playsinline preload="none" src="static/videos/box_opening.mp4"></video>
+        <span class="cell-label"><b>Filled box</b>, opened via coordinated finger sliding<span class="speed-tag">20× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="box no action" poster="static/images/posters/box_no_action.jpg" controls muted loop playsinline preload="none" src="static/videos/box_no_action.mp4"></video>
+        <span class="cell-label"><b>Empty box</b>, no action<span class="speed-tag">8× speed</span></span>
+      </div>
+    </div>
+
+</section>
+
+
+  <section class="container" id="method">
+    <p class="eyebrow">From exploration to action</p><h2>How It Works</h2>
+
+    <figure class="pf">
+      <div class="pf-half">
+        <p class="pf-half-title"><span class="pf-tag">a</span> Object representation learning</p>
+        <div class="pf-flow">
+
+          <div class="pf-stage">
+            <div class="pf-art">
+              <div class="pf-thumbs">
+                <div class="pf-thumb"><img src="static/images/posters/ep_swing.jpg" alt="Swing" loading="lazy"><span>Swing</span></div>
+                <div class="pf-thumb"><img src="static/images/posters/ep_shake.jpg" alt="Shake" loading="lazy"><span>Shake</span></div>
+                <div class="pf-thumb"><img src="static/images/posters/ep_squeeze.jpg" alt="Squeeze" loading="lazy"><span>Squeeze</span></div>
+                <div class="pf-thumb"><img src="static/images/posters/ep_tap_cavity.jpg" alt="Tap on cavity" loading="lazy"><span>Tap</span></div>
+              </div>
+            </div>
+            <div class="pf-label"><b>Tactile exploration</b><span>Six exploratory actions</span></div>
+          </div>
+
+          <div class="pf-arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5"/></svg></div>
+
+          <div class="pf-stage">
+            <div class="pf-art">
+              <svg viewBox="0 0 200 110" role="img" aria-label="Three synchronized signal tracks with sparse contact bursts">
+                <path d="M8 26 H12 l2-9 2 15 2-11 2 5 H44 l2-15 2 27 2-23 2 19 2-15 2 8 H100 l2-7 2 10 2-3 H140 l2-17 2 30 2-25 2 19 2-9 2 5 H192"
+                      fill="none" stroke="#5aa9a3" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M8 62 C40 62 44 48 60 48 S90 66 110 58 S150 46 192 56"
+                      fill="none" stroke="#8079c4" stroke-width="2"/>
+                <path d="M8 96 C30 96 36 84 56 86 S92 102 118 92 S160 88 192 94"
+                      fill="none" stroke="#5b7ba8" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="pf-label"><b>Synchronized signals</b><span>Vibrotactile, force, velocity</span></div>
+          </div>
+
+          <div class="pf-arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5"/></svg></div>
+
+          <div class="pf-stage">
+            <div class="pf-art">
+              <svg viewBox="0 0 200 110" role="img" aria-label="A long token sequence reduced to a few selected tokens">
+                <g>
+                  <rect x="10" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="20" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="30" y="14" width="8" height="8" rx="2" fill="#e09b80"/>
+                  <rect x="40" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="50" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="60" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="70" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="80" y="14" width="8" height="8" rx="2" fill="#e09b80"/>
+                  <rect x="90" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="100" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="110" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="120" y="14" width="8" height="8" rx="2" fill="#e09b80"/>
+                  <rect x="130" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="140" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="150" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="160" y="14" width="8" height="8" rx="2" fill="#e09b80"/>
+                  <rect x="170" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                  <rect x="180" y="14" width="8" height="8" rx="2" fill="#dcd9ee"/>
+                </g>
+                <path d="M100 32 V50 M94 44 l6 6 6-6" fill="none" stroke="#6155ad" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M46 60 h108 a6 6 0 0 1 6 6 v6 a6 6 0 0 1 -6 6 h-108 a6 6 0 0 1 -6 -6 v-6 a6 6 0 0 1 6 -6 z" fill="none" stroke="#e5e3f1"/>
+                <rect x="52" y="63" width="18" height="18" rx="4" fill="#e09b80"/>
+                <rect x="78" y="63" width="18" height="18" rx="4" fill="#e09b80"/>
+                <rect x="104" y="63" width="18" height="18" rx="4" fill="#e09b80"/>
+                <rect x="130" y="63" width="18" height="18" rx="4" fill="#e09b80"/>
+                <rect x="60" y="92" width="80" height="10" rx="5" fill="#6155ad"/>
+              </svg>
+            </div>
+            <div class="pf-label"><b>Top-K token selection</b><span>Only informative contacts survive</span></div>
+          </div>
+
+          <div class="pf-arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5"/></svg></div>
+
+          <div class="pf-stage">
+            <div class="pf-art">
+              <svg viewBox="0 0 200 110" role="img" aria-label="Latent space with property clusters around language anchors">
+                <ellipse cx="100" cy="55" rx="90" ry="47" fill="#f0eefa"/>
+                <g fill="#7cb96a">
+                  <circle cx="52" cy="30" r="3.4"/><circle cx="62" cy="24" r="3.4"/><circle cx="44" cy="38" r="3.4"/>
+                  <circle cx="58" cy="38" r="3.4"/><circle cx="68" cy="33" r="3.4"/>
+                </g>
+                <g fill="#7d86c9">
+                  <circle cx="142" cy="40" r="3.4"/><circle cx="152" cy="48" r="3.4"/><circle cx="134" cy="50" r="3.4"/>
+                  <circle cx="148" cy="33" r="3.4"/><circle cx="158" cy="41" r="3.4"/>
+                </g>
+                <g fill="#e09b80">
+                  <circle cx="88" cy="80" r="3.4"/><circle cx="98" cy="86" r="3.4"/><circle cx="80" cy="87" r="3.4"/>
+                  <circle cx="106" cy="78" r="3.4"/><circle cx="92" cy="72" r="3.4"/>
+                </g>
+                <g stroke="#3d3a52" stroke-width="1.2">
+                  <rect x="52" y="26" width="9" height="9" transform="rotate(45 56.5 30.5)" fill="#4f9a3c"/>
+                  <rect x="142" y="37" width="9" height="9" transform="rotate(45 146.5 41.5)" fill="#5a63ad"/>
+                  <rect x="88" y="76" width="9" height="9" transform="rotate(45 92.5 80.5)" fill="#c76b45"/>
+                </g>
+              </svg>
+            </div>
+            <div class="pf-label"><b>Language-aligned space</b><span>Structured by physical property</span></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="pf-half">
+        <p class="pf-half-title"><span class="pf-tag">b</span> Context-aware manipulation</p>
+        <div class="pf-flow">
+
+          <div class="pf-stage">
+            <div class="pf-art">
+              <svg viewBox="0 0 200 110" role="img" aria-label="Object embedding combined with object position">
+                <g>
+                  <rect x="26" y="18" width="16" height="16" rx="4" fill="#8079c4"/>
+                  <rect x="46" y="18" width="16" height="16" rx="4" fill="#a49dd6"/>
+                  <rect x="66" y="18" width="16" height="16" rx="4" fill="#6f67b8"/>
+                  <rect x="86" y="18" width="16" height="16" rx="4" fill="#b6b0e0"/>
+                  <rect x="106" y="18" width="16" height="16" rx="4" fill="#7f78c2"/>
+                  <rect x="126" y="18" width="16" height="16" rx="4" fill="#9b94d0"/>
+                  <rect x="146" y="18" width="16" height="16" rx="4" fill="#6a62b4"/>
+                </g>
+                <path d="M94 46 h12 M100 40 v12" stroke="#5f5d72" stroke-width="2" stroke-linecap="round"/>
+                <g stroke="#5b7ba8" stroke-width="2" fill="none" stroke-linecap="round">
+                  <path d="M72 84 h56"/><path d="M100 66 v36"/>
+                </g>
+                <circle cx="100" cy="84" r="6" fill="#5b7ba8"/>
+              </svg>
+            </div>
+            <div class="pf-label"><b>Object context</b><span>One representation per object, tied to its position</span></div>
+          </div>
+
+          <div class="pf-arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5"/></svg></div>
+
+          <div class="pf-stage">
+            <div class="pf-art">
+              <svg viewBox="0 0 200 110" role="img" aria-label="Action Chunking Transformer policy predicting an action sequence">
+                <rect x="34" y="16" width="132" height="48" rx="10" fill="#fff" stroke="#bd5f3c" stroke-width="1.6"/>
+                <g fill="#f0cbba">
+                  <rect x="48" y="28" width="14" height="24" rx="3"/>
+                  <rect x="70" y="28" width="14" height="24" rx="3"/>
+                  <rect x="92" y="28" width="14" height="24" rx="3"/>
+                  <rect x="114" y="28" width="14" height="24" rx="3"/>
+                  <rect x="136" y="28" width="14" height="24" rx="3"/>
+                </g>
+                <path d="M100 66 v12 M94 72 l6 6 6-6" fill="none" stroke="#bd5f3c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <g fill="#e09b80">
+                  <rect x="40" y="86" width="16" height="14" rx="3"/>
+                  <rect x="62" y="86" width="16" height="14" rx="3"/>
+                  <rect x="84" y="86" width="16" height="14" rx="3"/>
+                  <rect x="106" y="86" width="16" height="14" rx="3"/>
+                  <rect x="128" y="86" width="16" height="14" rx="3"/>
+                  <rect x="150" y="86" width="16" height="14" rx="3"/>
+                </g>
+              </svg>
+            </div>
+            <div class="pf-label"><b>ACT policy</b><span>Predicts an action chunk</span></div>
+          </div>
+
+          <div class="pf-arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5"/></svg></div>
+
+          <div class="pf-stage" style="flex-grow:1.6">
+            <div class="pf-art">
+              <div class="pf-thumbs three">
+                <div class="pf-thumb"><img src="static/images/posters/rearrangement_1.jpg" alt="Rearrangement" loading="lazy"><span>Rearrange</span></div>
+                <div class="pf-thumb"><img src="static/images/posters/pouring_success_1.jpg" alt="Pouring and recycling" loading="lazy"><span>Pour</span></div>
+                <div class="pf-thumb"><img src="static/images/posters/box_opening.jpg" alt="Box opening" loading="lazy"><span>Open</span></div>
+              </div>
+            </div>
+            <div class="pf-label"><b>Adaptive manipulation</b><span>Strategy follows the inferred properties</span></div>
+          </div>
+
+        </div>
+      </div>
+      <figcaption style="margin-top:16px">Tactile exploration is distilled into a language-aligned object representation, which then
+        conditions a manipulation policy. The representation captures physical object properties independently of the downstream task. Task-specific policies use this object context to adapt their manipulation strategies.</figcaption>
+    </figure>
+
+    <div class="pipeline">
+      <div class="step">
+        <span class="num">1</span>
+        <h3>Explore by touch</h3>
+        <p>The robot probes each object with exploratory actions such as shaking, squeezing
+        and tapping, revealing physical properties that vision alone cannot observe.</p>
+      </div>
+      <div class="step">
+        <span class="num">2</span>
+        <h3>Distill into a representation</h3>
+        <p>Informative tactile cues are sparse over a long exploration. The model distills
+        the few contact moments that matter into a compact object representation that captures
+        rigidity, material, contents, and fill level.</p>
+      </div>
+      <div class="step">
+        <span class="num">3</span>
+        <h3>Act with object-centric context</h3>
+        <p>Each object is associated with its own representation and position. During manipulation,
+        the policy uses this object-specific context together with live observations, then switches
+        context when moving to the next object. In multi-object scenes the robot explores every object
+        first and executes the task one object at a time.</p>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="container" id="representation">
+    <h2>Object Representation Learning</h2>
+    <p class="section-sub">A compact representation connects transient tactile events to persistent object properties.
+      The paper reports <b>90% average property estimation accuracy</b> for seen and unseen objects.</p>
+
+    <p class="section-sub" style="margin-top:22px"><b>Exploratory actions.</b>
+      A Franka arm with fin-ray parallel-jaw fingers probes each object with six predefined
+      actions, while vibrotactile signals from fingertip contact microphones, 6-axis
+      end-effector forces and end-effector velocities are recorded in synchronization.</p>
+    <div class="video-grid">
+      <div class="cell">
+        <video aria-label="ep swing" poster="static/images/posters/ep_swing.jpg" controls muted loop playsinline preload="none" src="static/videos/ep_swing.mp4"></video>
+        <span class="cell-label"><b>Swing</b></span>
+      </div>
+      <div class="cell">
+        <video aria-label="ep shake" poster="static/images/posters/ep_shake.jpg" controls muted loop playsinline preload="none" src="static/videos/ep_shake.mp4"></video>
+        <span class="cell-label"><b>Shake</b></span>
+      </div>
+      <div class="cell">
+        <video aria-label="ep squeeze" poster="static/images/posters/ep_squeeze.jpg" controls muted loop playsinline preload="none" src="static/videos/ep_squeeze.mp4"></video>
+        <span class="cell-label"><b>Squeeze</b></span>
+      </div>
+    </div>
+    <div class="video-grid" style="margin-top:14px">
+      <div class="cell">
+        <video aria-label="ep tap table" poster="static/images/posters/ep_tap_table.jpg" controls muted loop playsinline preload="none" src="static/videos/ep_tap_table.mp4"></video>
+        <span class="cell-label"><b>Tap on table</b></span>
+      </div>
+      <div class="cell">
+        <video aria-label="ep tap cavity" poster="static/images/posters/ep_tap_cavity.jpg" controls muted loop playsinline preload="none" src="static/videos/ep_tap_cavity.mp4"></video>
+        <span class="cell-label"><b>Tap on cavity</b></span>
+      </div>
+      <div class="cell">
+        <video aria-label="ep slide" poster="static/images/posters/ep_slide.jpg" controls muted loop playsinline preload="none" src="static/videos/ep_slide.mp4"></video>
+        <span class="cell-label"><b>Slide</b></span>
+      </div>
+    </div>
+
+    <p class="section-sub" style="margin-top:30px"><b>Learning framework.</b>
+      The three modalities are encoded into a multimodal token sequence, compressed by a
+      Top-K token learner, and aligned with text embeddings of physical properties.</p>
+
+    <div class="method-flow">
+      <div class="method-stage"><h3>Learn from exploration</h3><ol>
+        <li><strong>Encode synchronized signals</strong><span>Vibrotactile spectrograms, end-effector forces, and velocities are encoded in 0.5-second windows.</span></li>
+        <li><strong>Keep informative tokens</strong><span>A Top-K token learner compresses the trajectory into a compact object embedding.</span></li>
+        <li><strong>Align with property descriptions</strong><span>During training, contrastive losses align the representation with text embeddings of physical properties.</span></li>
+      </ol></div>
+      <div class="method-stage"><h3>Use object context for manipulation</h3><ol>
+        <li><strong>Infer properties from touch</strong><span>At inference, the learned embedding is compared with candidate property descriptors using cosine similarity.</span></li>
+        <li><strong>Choose the context representation</strong><span>The paper evaluates both the tactile embedding itself and text embeddings of its decoded property descriptors.</span></li>
+        <li><strong>Condition the task policy</strong><span>The current object's representation and position condition an Action Chunking Transformer alongside visual, proprioceptive, and online tactile observations. When one object is done, the context switches to the next.</span></li>
+      </ol></div>
+    </div>
+
+    <p class="section-sub"><b>Which moments does the model keep?</b>These examples show selected tokens concentrated in particular exploration phases. Select an object to inspect its trajectory and predicted properties.</p>
+    <div class="example-picker" role="group" aria-label="Token selection examples" hidden>
+      <button type="button" aria-pressed="true" data-example="0">Empty metal can</button>
+      <button type="button" aria-pressed="false" data-example="1">Liquid-filled bottle</button>
+      <button type="button" aria-pressed="false" data-example="2">Granular-filled can</button>
+    </div>
+    <figure>
+      <div class="token-scroll"><div class="token-window" style="--example:0"><img src="static/images/token_selection.png" alt="Selected tokens for an empty metal can across squeeze, swing, table tap, cavity tap, shake, and slide phases." loading="lazy"></div></div>
+      <div id="token-properties" aria-live="polite"><div class="property-list"><span>Contents · empty</span><span>Fill level · empty</span><span>Material · metal</span><span>Rigidity · deformable</span></div><p class="token-detail">Selected tokens occur in squeezing, swinging, cavity tapping, and shaking, with few in table tapping or sliding.</p></div>
+      <figcaption>Squares mark selected tokens; dashed lines separate exploratory actions. The original figure labels the fill-level descriptor as “mass.” On a small screen, scroll horizontally to inspect the trajectory.</figcaption>
+      <a class="figure-link" href="static/images/token_selection.png" target="_blank" rel="noopener">View all three trajectories at full resolution ↗</a>
+    </figure>
+    <div class="embedding-explorer" aria-labelledby="embedding-title">
+      <div class="embedding-intro">
+        <p class="eyebrow">Tactile representations meet language</p>
+        <h3 id="embedding-title">Explore tactile and language alignment</h3>
+        <p>Contrastive learning aligns tactile object representations with language descriptions of physical properties. The same 136 tactile embeddings stay in place as you color them by contents, fill level, material, or rigidity. Diamonds show the corresponding language anchors.</p>
+      </div>
+      <div class="embedding-controls" role="group" aria-label="Choose a property visualization" hidden>
+        <span class="embedding-control-label">Color by</span>
+        <button type="button" data-property="0" aria-pressed="true">Contents</button>
+        <button type="button" data-property="1" aria-pressed="false">Fill level</button>
+        <button type="button" data-property="2" aria-pressed="false">Material</button>
+        <button type="button" data-property="3" aria-pressed="false">Rigidity</button>
+      </div>
+      <div id="embedding-interactive" hidden>
+        <div id="embedding-legend" class="embedding-legend" role="group" aria-label="Highlight a property class"></div>
+        <figure class="embedding-figure">
+          <svg id="embedding-plot" viewBox="0 0 720 475" role="group" aria-labelledby="embedding-svg-title embedding-svg-desc">
+            <title id="embedding-svg-title">Tactile and language embeddings</title>
+            <desc id="embedding-svg-desc">A fixed UMAP projection. Circles are tactile samples; diamonds are language anchors. Tab to a sample and use arrow keys to inspect other samples. Select a property above to change the colors.</desc>
+          </svg>
+          <figcaption id="embedding-caption" aria-live="polite"></figcaption>
+        </figure>
+        <div class="embedding-inspector" id="embedding-inspector" role="status" aria-live="polite"></div>
+        <p class="embedding-key">Circles are tactile embeddings · Diamonds are language anchors · Crosses are incorrect predictions</p>
+        <p class="embedding-note">Hover or focus to inspect. Click a point to keep its details; press Escape to clear. Click a legend label to highlight a class.</p>
+      </div>
+      <figure id="embedding-fallback" class="embedding-figure">
+        <img src="static/images/umap_content_frozen.png" alt="Frozen UMAP projection showing tactile samples and language anchors colored by contents." loading="lazy">
+        <figcaption>Contents are solid, granular, liquid, or empty.</figcaption>
+      </figure>
+      <p class="embedding-note" style="margin-top:14px">A qualitative 2D projection, not a measure of classification accuracy. Language anchors are transformed into the fitted tactile UMAP space; distances in this projection do not directly reproduce high-dimensional cosine similarity.</p>
+      <a class="figure-link" href="static/data/umap.json" download>Download plotted coordinates and labels</a>
+    </div>
+</section>
+
+
+  <section class="container" id="video">
+    <p class="eyebrow">The complete walkthrough</p><h2>Supplementary Video</h2>
+    <p class="section-sub">A narrated walkthrough of exploration, representation learning, and robot manipulation.</p>
+    <div class="video-wrap">
+      <video controls preload="metadata" poster="static/images/teaser.png">
+        <source src="static/videos/suppl_video.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+
+  <section class="container">
+    <details>
+      <summary>Abstract</summary>
+      <div class="inner">
+        <p>
+          Implicit object properties that are difficult to directly infer from vision, such as material, container
+          contents, or softness, can be revealed through tactile sensing and exploratory interactions. However,
+          because tactile signals are transient and sparse, extracting informative tactile events and effectively
+          incorporating them into robotic manipulation remains a challenge. In this work, we present an
+          object-centric context-aware manipulation framework that learns task-agnostic object representations
+          through tactile exploration. A token learner autonomously selects representative tactile segments from
+          long-horizon exploration, while contrastive alignment with descriptive text embeddings enables a latent
+          space that captures multiple physical object properties. These learned representations are then used as
+          semantic context to guide object-centric manipulation policies and adapt strategies based on object
+          properties. Experiments show that the learned representations achieve 90% accuracy for object property
+          estimation for both seen and unseen objects. Evaluated on three tasks involving visually ambiguous
+          objects, i.e. multi-object rearrangement, pouring, and box opening, the proposed framework improves both
+          target selection and property-dependent manipulation adaptation, achieving an average task success rate
+          of 85%, compared to 36% for baseline policies without object-context conditioning.
+        </p>
+      </div>
+    </details>
+  </section>
+
+
+  <section class="container" id="bibtex">
+    <h2>BibTeX</h2>
+    <pre class="bibtex">@inproceedings{yang2026objectcentric,
+  title     = {Learning with Object-centric Representations of Tactile Interactive Perception for Robot Manipulation},
+  author    = {Yang, Xinyi and Si, Zilin and Xu, Zhuowei and Temel, Zeynep and Kroemer, Oliver},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2026},
+  note      = {To appear}
+}</pre>
+  </section>
+
+  </main>
+  <footer class="container">
+    <p>Robotics Institute, Carnegie Mellon University</p>
+    <p>Website template inspired by <a href="https://nerfies.github.io">Nerfies</a>.</p>
+  </footer>
+
+
+  <script id="embedding-data" type="application/json">{"meta":{"created_at":"2026-09-14T02:13:38","num_samples":136,"umap":{"n_neighbors":30,"min_dist":0.3,"metric":"cosine","random_state":0,"text_projection":"tactile_transform","box_aspect":0.66}},"axes":[{"name":"content","display_name":"Contents","class_names":["solid","granular","liquid","empty"],"colors":["#FF684D","#78C878","#3AAEBB","#FBC14C"],"prompts":{"solid":["solid content"],"granular":["granular","particle"],"liquid":["liquid","fluid"],"empty":["empty"]}},{"name":"mass","display_name":"Fill level","class_names":["full","half","empty"],"colors":["#FF684D","#78C878","#3AAEBB"],"prompts":{"full":["full","fully filled"],"half":["half"],"empty":["empty"]}},{"name":"material","display_name":"Material","class_names":["metal","plastic","glass"],"colors":["#FF684D","#78C878","#3AAEBB"],"prompts":{"metal":["metal"],"plastic":["plastic"],"glass":["glass"]}},{"name":"rigidity","display_name":"Rigidity","class_names":["rigid","deformable"],"colors":["#FF684D","#78C878"],"prompts":{"rigid":["rigid"],"deformable":["deformable"]}}],"samples":[{"id":"sample-1","object_name":"granular_full_plastic_rigid","x":2.558748245239258,"y":13.765487670898438,"labels":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-2","object_name":"granular_half_plastic_deformable","x":0.2893880009651184,"y":6.8533244132995605,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-3","object_name":"granular_half_metal_rigid","x":2.3375370502471924,"y":8.773887634277344,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-4","object_name":"solid_full_glass_rigid","x":2.343761444091797,"y":11.974977493286133,"labels":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-5","object_name":"liquid_half_plastic_rigid","x":-1.06528639793396,"y":9.073944091796875,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-6","object_name":"solid_half_metal_deformable","x":4.265925407409668,"y":13.714977264404297,"labels":{"content":"solid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"solid","mass":"full","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":false,"material":true,"rigidity":true}},{"id":"sample-7","object_name":"granular_full_glass_rigid","x":2.249478578567505,"y":12.431938171386719,"labels":{"content":"granular","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-8","object_name":"empty_empty_plastic_rigid","x":5.6242899894714355,"y":11.719778060913086,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-9","object_name":"granular_half_metal_deformable","x":1.896726131439209,"y":7.082281112670898,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-10","object_name":"solid_full_metal_rigid","x":1.5337355136871338,"y":11.891400337219238,"labels":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-11","object_name":"empty_empty_plastic_rigid","x":5.409523963928223,"y":10.85648250579834,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":false}},{"id":"sample-12","object_name":"liquid_half_glass_rigid","x":2.056718349456787,"y":10.138851165771484,"labels":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-13","object_name":"empty_empty_plastic_rigid","x":5.306782245635986,"y":12.374181747436523,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-14","object_name":"empty_empty_plastic_rigid","x":5.378286361694336,"y":12.184076309204102,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-15","object_name":"solid_half_metal_deformable","x":2.485799551010132,"y":7.500585556030273,"labels":{"content":"solid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"solid","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-16","object_name":"liquid_half_plastic_rigid","x":-1.027886986732483,"y":8.744723320007324,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-17","object_name":"empty_empty_metal_deformable","x":4.789661407470703,"y":8.705435752868652,"labels":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-18","object_name":"liquid_half_plastic_deformable","x":0.010650642216205597,"y":7.688787937164307,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-19","object_name":"solid_full_plastic_rigid","x":3.789194107055664,"y":14.886882781982422,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-20","object_name":"granular_half_plastic_deformable","x":-0.0011916498187929392,"y":6.504325866699219,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-21","object_name":"solid_full_glass_rigid","x":2.5154433250427246,"y":11.77872085571289,"labels":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-22","object_name":"granular_half_metal_deformable","x":2.1299469470977783,"y":7.224691390991211,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-23","object_name":"liquid_full_metal_rigid","x":1.08185613155365,"y":10.239509582519531,"labels":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-24","object_name":"solid_full_plastic_rigid","x":3.130474805831909,"y":14.164314270019531,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-25","object_name":"solid_full_plastic_rigid","x":3.4780638217926025,"y":14.590436935424805,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-26","object_name":"granular_half_metal_rigid","x":2.927138566970825,"y":9.293438911437988,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":false,"rigidity":true}},{"id":"sample-27","object_name":"solid_half_metal_deformable","x":2.5062131881713867,"y":7.595512390136719,"labels":{"content":"solid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"solid","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-28","object_name":"granular_half_metal_rigid","x":2.5907442569732666,"y":8.871516227722168,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-29","object_name":"solid_full_plastic_rigid","x":3.50288987159729,"y":14.352287292480469,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-30","object_name":"empty_empty_glass_rigid","x":4.039712429046631,"y":11.184415817260742,"labels":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-31","object_name":"granular_full_metal_rigid","x":1.1866199970245361,"y":12.743006706237793,"labels":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-32","object_name":"granular_half_plastic_rigid","x":0.0974341630935669,"y":5.991868019104004,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-33","object_name":"liquid_half_glass_rigid","x":2.515582323074341,"y":10.57601261138916,"labels":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-34","object_name":"granular_half_plastic_rigid","x":2.5962448120117188,"y":8.461465835571289,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":false,"rigidity":true}},{"id":"sample-35","object_name":"granular_half_metal_deformable","x":2.0322299003601074,"y":6.597219467163086,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-36","object_name":"granular_half_glass_rigid","x":2.975390672683716,"y":10.120553016662598,"labels":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-37","object_name":"liquid_half_metal_rigid","x":1.070259690284729,"y":9.010916709899902,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-38","object_name":"liquid_half_plastic_deformable","x":-0.18080726265907288,"y":8.072933197021484,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-39","object_name":"liquid_half_plastic_rigid","x":-0.8726845979690552,"y":8.695517539978027,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-40","object_name":"empty_empty_plastic_deformable","x":5.423327445983887,"y":9.969976425170898,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-41","object_name":"liquid_half_glass_rigid","x":2.50319766998291,"y":10.205005645751953,"labels":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-42","object_name":"liquid_half_plastic_rigid","x":-0.5279484987258911,"y":8.980766296386719,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-43","object_name":"solid_full_metal_rigid","x":1.1151742935180664,"y":11.58809757232666,"labels":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-44","object_name":"granular_half_metal_deformable","x":1.6947972774505615,"y":7.213081359863281,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-45","object_name":"empty_empty_metal_deformable","x":4.511311054229736,"y":8.54001522064209,"labels":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-46","object_name":"liquid_half_metal_rigid","x":1.177951455116272,"y":9.025944709777832,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-47","object_name":"empty_empty_glass_rigid","x":5.041876792907715,"y":11.93322467803955,"labels":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":false,"rigidity":true}},{"id":"sample-48","object_name":"solid_full_metal_rigid","x":1.4036357402801514,"y":11.749732971191406,"labels":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-49","object_name":"liquid_half_plastic_rigid","x":-0.5029370188713074,"y":9.071724891662598,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-50","object_name":"empty_empty_glass_rigid","x":3.553201198577881,"y":10.915155410766602,"labels":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-51","object_name":"liquid_full_plastic_rigid","x":2.6588973999023438,"y":14.986898422241211,"labels":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-52","object_name":"granular_half_plastic_rigid","x":-0.041821207851171494,"y":5.701598167419434,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-53","object_name":"liquid_full_metal_rigid","x":0.8293768167495728,"y":10.793795585632324,"labels":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-54","object_name":"empty_empty_plastic_rigid","x":5.402344226837158,"y":11.495290756225586,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-55","object_name":"empty_empty_plastic_deformable","x":5.646092414855957,"y":10.24258804321289,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-56","object_name":"liquid_full_metal_rigid","x":0.873465359210968,"y":10.341516494750977,"labels":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-57","object_name":"liquid_half_glass_rigid","x":2.0358643531799316,"y":10.425254821777344,"labels":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-58","object_name":"liquid_half_plastic_rigid","x":-1.0056836605072021,"y":9.192639350891113,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-59","object_name":"liquid_half_metal_deformable","x":1.520916223526001,"y":7.949835777282715,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-60","object_name":"liquid_half_metal_deformable","x":1.403743863105774,"y":8.465261459350586,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-61","object_name":"liquid_full_plastic_rigid","x":2.565150260925293,"y":14.613120079040527,"labels":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-62","object_name":"granular_full_plastic_rigid","x":2.1790575981140137,"y":13.867128372192383,"labels":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-63","object_name":"liquid_full_metal_rigid","x":0.9681833982467651,"y":10.681325912475586,"labels":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-64","object_name":"empty_empty_plastic_rigid","x":5.504522800445557,"y":11.437081336975098,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-65","object_name":"empty_empty_plastic_deformable","x":6.079010486602783,"y":10.071818351745605,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-66","object_name":"granular_full_metal_rigid","x":1.1259779930114746,"y":12.509818077087402,"labels":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-67","object_name":"liquid_half_metal_deformable","x":1.6540842056274414,"y":8.189146995544434,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-68","object_name":"liquid_full_plastic_rigid","x":2.3265442848205566,"y":15.038468360900879,"labels":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-69","object_name":"granular_half_plastic_deformable","x":0.4717320203781128,"y":6.837119102478027,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-70","object_name":"liquid_half_plastic_deformable","x":-0.1311926245689392,"y":8.232810020446777,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-71","object_name":"empty_empty_plastic_deformable","x":5.560875415802002,"y":9.931394577026367,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-72","object_name":"liquid_full_plastic_rigid","x":2.7199788093566895,"y":14.885603904724121,"labels":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-73","object_name":"empty_empty_metal_deformable","x":4.818475723266602,"y":8.989222526550293,"labels":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-74","object_name":"liquid_full_metal_rigid","x":0.9412984251976013,"y":10.005693435668945,"labels":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-75","object_name":"solid_full_plastic_rigid","x":3.152683973312378,"y":14.480801582336426,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-76","object_name":"empty_empty_metal_deformable","x":4.628151893615723,"y":8.703840255737305,"labels":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-77","object_name":"liquid_half_metal_rigid","x":1.3762508630752563,"y":9.357940673828125,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-78","object_name":"granular_full_metal_rigid","x":1.4971541166305542,"y":12.649724006652832,"labels":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-79","object_name":"empty_empty_glass_rigid","x":3.3938870429992676,"y":11.053999900817871,"labels":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-80","object_name":"granular_half_glass_rigid","x":3.230348587036133,"y":10.122653007507324,"labels":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-81","object_name":"liquid_half_metal_rigid","x":1.0902440547943115,"y":9.369805335998535,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-82","object_name":"empty_empty_plastic_rigid","x":5.682801246643066,"y":12.079365730285645,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-83","object_name":"granular_full_glass_rigid","x":2.2043614387512207,"y":12.636011123657227,"labels":{"content":"granular","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-84","object_name":"empty_empty_plastic_deformable","x":5.75476598739624,"y":9.776986122131348,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-85","object_name":"solid_full_plastic_rigid","x":3.5773861408233643,"y":14.0671968460083,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-86","object_name":"granular_half_metal_deformable","x":2.0030171871185303,"y":7.031219482421875,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-87","object_name":"granular_full_metal_rigid","x":1.3767787218093872,"y":12.885692596435547,"labels":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-88","object_name":"liquid_half_metal_deformable","x":1.3285448551177979,"y":8.174829483032227,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-89","object_name":"empty_empty_metal_deformable","x":4.903189659118652,"y":8.8500337600708,"labels":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-90","object_name":"granular_half_metal_deformable","x":2.2859904766082764,"y":6.8325886726379395,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-91","object_name":"granular_full_glass_rigid","x":2.0234451293945312,"y":12.613054275512695,"labels":{"content":"granular","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-92","object_name":"solid_full_glass_rigid","x":2.8991191387176514,"y":11.455870628356934,"labels":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-93","object_name":"granular_half_metal_rigid","x":2.8583226203918457,"y":8.723689079284668,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-94","object_name":"liquid_full_plastic_rigid","x":2.370232582092285,"y":15.179685592651367,"labels":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-95","object_name":"solid_full_plastic_rigid","x":3.3454654216766357,"y":15.090607643127441,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-96","object_name":"liquid_half_plastic_rigid","x":-0.04089829698204994,"y":8.726344108581543,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":false}},{"id":"sample-97","object_name":"liquid_half_metal_deformable","x":1.3422967195510864,"y":8.189923286437988,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-98","object_name":"granular_full_plastic_rigid","x":2.419142246246338,"y":13.86099910736084,"labels":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-99","object_name":"empty_empty_plastic_rigid","x":5.153632164001465,"y":11.479832649230957,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-100","object_name":"liquid_half_glass_rigid","x":2.3135154247283936,"y":10.402018547058105,"labels":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-101","object_name":"granular_half_plastic_rigid","x":-0.23560287058353424,"y":5.77742862701416,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-102","object_name":"liquid_half_metal_rigid","x":0.8986460566520691,"y":8.879023551940918,"labels":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-103","object_name":"granular_half_metal_deformable","x":2.104907274246216,"y":6.974248886108398,"labels":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-104","object_name":"empty_empty_plastic_deformable","x":5.893074035644531,"y":9.625868797302246,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-105","object_name":"granular_full_plastic_rigid","x":2.1588594913482666,"y":13.81257152557373,"labels":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-106","object_name":"empty_empty_plastic_rigid","x":5.25251579284668,"y":11.812417984008789,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-107","object_name":"empty_empty_plastic_deformable","x":5.772536754608154,"y":9.90120792388916,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-108","object_name":"granular_half_plastic_rigid","x":-0.20241129398345947,"y":5.670864582061768,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-109","object_name":"solid_full_plastic_rigid","x":3.757160186767578,"y":14.805274963378906,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-110","object_name":"solid_full_metal_rigid","x":1.8781908750534058,"y":11.926401138305664,"labels":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":false,"rigidity":true}},{"id":"sample-111","object_name":"empty_empty_glass_rigid","x":3.8098530769348145,"y":11.098954200744629,"labels":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-112","object_name":"granular_half_plastic_rigid","x":-0.25074276328086853,"y":6.117002487182617,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-113","object_name":"liquid_half_plastic_rigid","x":-0.8767272233963013,"y":8.751155853271484,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-114","object_name":"empty_empty_plastic_deformable","x":5.338308334350586,"y":9.99190902709961,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-115","object_name":"solid_full_metal_rigid","x":1.320812463760376,"y":11.536821365356445,"labels":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-116","object_name":"liquid_half_plastic_deformable","x":-0.39222660660743713,"y":8.119524002075195,"labels":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"preds":{"content":"liquid","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-117","object_name":"granular_half_plastic_rigid","x":-0.3080332577228546,"y":6.135780334472656,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-118","object_name":"solid_full_plastic_rigid","x":3.5984251499176025,"y":14.242255210876465,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-119","object_name":"granular_full_metal_rigid","x":1.2246063947677612,"y":12.41292953491211,"labels":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-120","object_name":"granular_half_plastic_rigid","x":0.0981464609503746,"y":6.042482852935791,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-121","object_name":"empty_empty_plastic_rigid","x":5.798085689544678,"y":12.031808853149414,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-122","object_name":"granular_full_plastic_rigid","x":2.533632755279541,"y":14.125309944152832,"labels":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-123","object_name":"granular_half_glass_rigid","x":3.1376800537109375,"y":9.963139533996582,"labels":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-124","object_name":"granular_full_glass_rigid","x":2.465524435043335,"y":12.502788543701172,"labels":{"content":"granular","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-125","object_name":"empty_empty_plastic_rigid","x":5.8617987632751465,"y":11.821090698242188,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-126","object_name":"solid_full_plastic_rigid","x":3.5560340881347656,"y":14.95074462890625,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-127","object_name":"solid_full_plastic_rigid","x":3.9164557456970215,"y":14.281832695007324,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-128","object_name":"granular_half_glass_rigid","x":3.3194081783294678,"y":9.627153396606445,"labels":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-129","object_name":"solid_full_glass_rigid","x":2.6164824962615967,"y":12.080646514892578,"labels":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-130","object_name":"solid_full_plastic_rigid","x":3.240654706954956,"y":14.461649894714355,"labels":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-131","object_name":"solid_full_glass_rigid","x":2.896379232406616,"y":12.11391544342041,"labels":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"preds":{"content":"solid","mass":"full","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-132","object_name":"granular_half_glass_rigid","x":3.1638286113739014,"y":9.8206148147583,"labels":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"preds":{"content":"granular","mass":"half","material":"glass","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-133","object_name":"empty_empty_plastic_rigid","x":5.560236930847168,"y":12.172367095947266,"labels":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"preds":{"content":"empty","mass":"empty","material":"plastic","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-134","object_name":"liquid_full_metal_rigid","x":0.6568648815155029,"y":10.204900741577148,"labels":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"preds":{"content":"liquid","mass":"full","material":"metal","rigidity":"rigid"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-135","object_name":"solid_half_metal_deformable","x":2.2402267456054688,"y":7.409111499786377,"labels":{"content":"solid","mass":"half","material":"metal","rigidity":"deformable"},"preds":{"content":"solid","mass":"half","material":"metal","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}},{"id":"sample-136","object_name":"granular_half_plastic_deformable","x":0.16062377393245697,"y":6.547558307647705,"labels":{"content":"granular","mass":"half","material":"plastic","rigidity":"deformable"},"preds":{"content":"granular","mass":"half","material":"plastic","rigidity":"deformable"},"correct":{"content":true,"mass":true,"material":true,"rigidity":true}}],"text_anchors":[{"axis":"content","class":"solid","class_idx":0,"x":3.4570932388305664,"y":13.149333953857422},{"axis":"content","class":"granular","class_idx":1,"x":1.2329182624816895,"y":6.161195755004883},{"axis":"content","class":"liquid","class_idx":2,"x":0.11113716661930084,"y":9.5329008102417},{"axis":"content","class":"empty","class_idx":3,"x":4.875942707061768,"y":10.652763366699219},{"axis":"mass","class":"full","class_idx":0,"x":1.5322140455245972,"y":13.512458801269531},{"axis":"mass","class":"half","class_idx":1,"x":0.5888757109642029,"y":8.016091346740723},{"axis":"mass","class":"empty","class_idx":2,"x":4.939426898956299,"y":10.732755661010742},{"axis":"material","class":"metal","class_idx":0,"x":1.983707308769226,"y":8.507898330688477},{"axis":"material","class":"plastic","class_idx":1,"x":-0.7794339060783386,"y":10.421693801879883},{"axis":"material","class":"glass","class_idx":2,"x":2.6824042797088623,"y":10.982598304748535},{"axis":"rigidity","class":"rigid","class_idx":0,"x":3.0846214294433594,"y":13.054702758789062},{"axis":"rigidity","class":"deformable","class_idx":1,"x":3.2894465923309326,"y":7.500050067901611}]}</script>
+  <script src="static/js/embedding-explorer.js" defer></script>
+  <script>
+    (() => {
+
+      const examples = [
+        { properties: ['empty', 'empty', 'metal', 'deformable'], name: 'empty metal can', note: 'Selected tokens occur in squeezing, swinging, cavity tapping, and shaking, with few in table tapping or sliding.' },
+        { properties: ['liquid', 'full', 'plastic', 'rigid'], name: 'liquid-filled plastic bottle', note: 'For this bottle, many selected tokens occur during swinging; cavity tapping and shaking also contribute.' },
+        { properties: ['granular', 'half', 'metal', 'deformable'], name: 'granular-filled metal can', note: 'For this can, selected tokens concentrate in swinging and shaking, with additional tokens during cavity tapping.' }
+      ];
+      const picker = document.querySelector('.example-picker');
+      picker.hidden = false;
+      picker.querySelectorAll('button').forEach(button => button.addEventListener('click', () => {
+        const index = Number(button.dataset.example);
+        const example = examples[index];
+        picker.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+        document.querySelector('.token-window').style.setProperty('--example', index);
+        document.querySelector('.token-window img').alt = 'Selected tokens across the exploration trajectory for a ' + example.name + '.';
+        const labels = ['Contents', 'Fill level', 'Material', 'Rigidity'];
+        const container = document.getElementById('token-properties');
+        container.replaceChildren();
+        const properties = document.createElement('div');
+        properties.className = 'property-list';
+        example.properties.forEach((value, i) => { const span = document.createElement('span'); span.textContent = labels[i] + ' · ' + value; properties.append(span); });
+        const note = document.createElement('p'); note.className = 'token-detail'; note.textContent = example.note;
+        container.append(properties, note);
+      }));
+      const videos = [...document.querySelectorAll('video[loop]')];
+      const motion = document.getElementById('motion-toggle');
+      const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let enabled = !preference.matches;
+      const visible = new Set();
+      const manuallyPaused = new WeakSet();
+      const internalPause = new WeakSet();
+      function pause(video) { if (!video.paused) { internalPause.add(video); video.pause(); } }
+      function play(video) { const promise = video.play(); if (promise) promise.catch(() => {}); }
+      function update() {
+        motion.textContent = enabled ? 'Pause demo loops' : 'Play visible demo loops';
+        videos.forEach(video => { if (enabled && visible.has(video) && !document.hidden && !manuallyPaused.has(video)) play(video); else pause(video); });
+      }
+      videos.forEach(video => {
+        video.addEventListener('pause', () => { if (internalPause.has(video)) internalPause.delete(video); else manuallyPaused.add(video); });
+        video.addEventListener('play', () => manuallyPaused.delete(video));
+      });
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) { visible.add(entry.target); if (enabled && !document.hidden && !manuallyPaused.has(entry.target)) play(entry.target); }
+            else { visible.delete(entry.target); pause(entry.target); }
+          });
+        }, { threshold: 0.15 });
+        videos.forEach(video => observer.observe(video));
+        motion.hidden = false;
+        update();
+        motion.addEventListener('click', () => { enabled = !enabled; if (enabled) videos.forEach(v => manuallyPaused.delete(v)); update(); });
+        document.addEventListener('visibilitychange', update);
+        preference.addEventListener('change', () => { if (preference.matches) { enabled = false; update(); } });
+      }
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const root = document.getElementById('decision-explorer');
+      if (!root) return;
+
+      const DEST = {
+        solid:    { area: 'green area',  slot: 'solid',    why: 'Solid contents belong in the green area.' },
+        granular: { area: 'purple area', slot: 'granular', why: 'Granular contents belong in the purple area.' },
+        liquid:   { area: 'yellow area', slot: 'liquid',   why: 'Liquid contents belong in the yellow area.' },
+        empty:    { area: 'recycle bin', slot: 'empty',    why: 'An empty container skips the shelf and goes straight to the recycle bin.' }
+      };
+      const GRASP = {
+        deformable: 'Side grasp',
+        rigid: 'Top grasp'
+      };
+
+      const CLIPS = {
+        'rigid|liquid':        { file: 'rearrangement_1',        note: 'Liquid-filled rigid jar. Top grasp, placed in the yellow area.', speed: '4×' },
+        'deformable|liquid':   { file: 'rr_liquid_deformable',   note: 'Liquid-filled deformable bottle. Side grasp, placed in the yellow area.', speed: '4×' },
+        'rigid|solid':         { file: 'rr_solid_rigid',         note: 'Solid rigid can. Top grasp, placed in the green area.', speed: '4×' },
+        'rigid|granular':      { file: 'rr_granular_rigid',      note: 'Granular-filled rigid can. Top grasp, placed in the purple area.', speed: '4×' },
+        'deformable|granular': { file: 'rr_granular_deformable', note: 'Granular-filled deformable can. Side grasp, placed in the purple area.', speed: '4×' },
+        'empty':               { file: 'rr_empty_can',           note: 'Empty can. Top grasp, dropped straight into the recycle bin.', speed: '4×' }
+      };
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const state = { rigidity: 'rigid', contents: 'liquid' };
+      const verdict = document.getElementById('dx-verdict');
+      const why = document.getElementById('dx-why');
+      const clipWrap = document.getElementById('dx-clip');
+      const video = document.getElementById('dx-video');
+      const speedBadge = document.getElementById('dx-speed');
+      const clipNote = document.getElementById('dx-clip-note');
+      const groups = [...root.querySelectorAll('.dx-btns')];
+      const slots = [...root.querySelectorAll('.dx-slot')];
+      let currentFile = null;
+
+      function showClip(isEmpty) {
+        const key = isEmpty ? 'empty' : state.rigidity + '|' + state.contents;
+        const clip = CLIPS[key];
+        if (!clip) {
+          clipWrap.dataset.empty = 'true';
+          clipNote.textContent = '';
+          video.pause();
+          currentFile = null;
+          return;
+        }
+        clipWrap.dataset.empty = 'false';
+        clipNote.textContent = clip.note;
+        speedBadge.textContent = clip.speed ? clip.speed + ' speed' : '';
+        speedBadge.hidden = !clip.speed;
+        if (clip.file === currentFile) return;
+        currentFile = clip.file;
+        video.style.aspectRatio = clip.file.startsWith('rr_') ? '1400 / 900' : '16 / 9';
+        video.poster = 'static/images/posters/' + clip.file + '.jpg';
+        video.src = 'static/videos/' + clip.file + '.mp4';
+        video.load();
+        if (!reduceMotion.matches) { const p = video.play(); if (p && p.catch) p.catch(() => {}); }
+      }
+
+      function render() {
+        const isEmpty = state.contents === 'empty';
+        const grasp = isEmpty ? 'Top grasp' : GRASP[state.rigidity];
+        const dest = DEST[state.contents];
+
+        showClip(isEmpty);
+        verdict.textContent = grasp + ' → ' + dest.area;
+        why.textContent = isEmpty
+          ? 'Empty containers are recycled with a top grasp whatever their rigidity, so the rigidity choice does not apply here.'
+          : (state.rigidity === 'deformable'
+              ? 'Deformable objects are grasped from the side so they are not crushed. '
+              : 'Rigid objects are grasped from the top. ') + dest.why;
+
+        const hasClip = (r, c) => c === 'empty' || Boolean(CLIPS[r + '|' + c]);
+        groups.forEach(group => {
+          const key = group.dataset.group;
+          group.querySelectorAll('button').forEach(button => {
+            const value = button.dataset.value;
+            button.setAttribute('aria-pressed', String(value === state[key]));
+            const blocked = key === 'rigidity'
+              ? (isEmpty || !hasClip(value, state.contents))
+              : !hasClip(state.rigidity, value);
+            button.disabled = blocked;
+            button.title = blocked && !(key === 'rigidity' && isEmpty) ? 'No rollout clip was recorded for this combination' : '';
+          });
+        });
+
+        slots.forEach(slot => {
+          const active = slot.dataset.slot === dest.slot;
+          slot.querySelector('rect, path').setAttribute('opacity', active ? '1' : '0.22');
+          slot.querySelector('rect, path').setAttribute('stroke-width', active ? '2' : '0');
+          slot.querySelector('text').setAttribute('opacity', active ? '1' : '0.4');
+        });
+      }
+
+      groups.forEach(group => group.addEventListener('click', event => {
+        const button = event.target.closest('button');
+        if (!button || button.disabled) return;
+        state[group.dataset.group] = button.dataset.value;
+        render();
+      }));
+
+      render();
+    })();
+  </script>
+
+</body>
+</html>
