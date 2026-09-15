@@ -90,7 +90,7 @@
 
     /* ---------- Stat tiles ---------- */
     .stats {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
       max-width: 860px; margin: 28px auto 0;
     }
     .stat {
@@ -101,8 +101,9 @@
       font-size: 2.3rem; font-weight: 650; line-height: 1.1;
       color: var(--accent-dark); letter-spacing: -0.01em;
     }
-    .stat .value .from { color: var(--muted); font-weight: 500; font-size: 1.5rem; }
+    .stat .value .from { display: block; color: var(--muted); font-weight: 500; font-size: 1.05rem; line-height: 1.3; margin-bottom: 2px; }
     .stat .label { color: var(--muted); font-size: 0.92rem; margin-top: 8px; line-height: 1.45; }
+    @media (max-width: 960px) { .stats { grid-template-columns: repeat(2, 1fr); } .stat + .stat { border-left: 0; } .stat:nth-child(even) { border-left: 1px solid var(--border); } .stat:nth-child(n+3) { border-top: 1px solid var(--border); } }
     @media (max-width: 720px) { .stats { grid-template-columns: 1fr; } }
 
     /* ---------- Pipeline cards ---------- */
@@ -280,7 +281,7 @@
     .umap-panel { position: relative; overflow: hidden; aspect-ratio: 675.5 / 514; }
     .umap-panel img { position: absolute; top: 0; width: 400%; max-width: none; border-radius: 0; left: calc(var(--panel) * -100%); }
     .figure-grid figcaption { text-align: center; color: var(--text); font-weight: 600; }
-    .token-window { position: relative; overflow: hidden; aspect-ratio: 1708 / 197.333; }
+    .token-window { position: relative; overflow: hidden; aspect-ratio: 1586 / 168; }
     .token-window img { position: absolute; width: 100%; top: calc(var(--example) * -100%); border-radius: 0; }
     .example-picker { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
     .example-picker button { padding: 8px 16px; border-radius: 99px; border: 1px solid var(--border); background: white; color: var(--text); font-size: .9rem; }
@@ -288,6 +289,14 @@
     .property-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
     .property-list span { background: var(--bg-soft); border: 1px solid var(--border); padding: 6px 12px; font-size: .9rem; border-radius: 6px; }
     .token-detail { color: var(--muted); font-size: .95rem; }
+    .property-list span b { display: block; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+    .property-list span.match { background: #eef7ee; border-color: #bfe0c2; }
+    .property-list span.mismatch { background: #fdf0ee; border-color: #f0c3bb; }
+    .property-list .gt { color: var(--text); }
+    .property-list .pred { font-weight: 650; }
+    .property-list span.match .pred { color: #15803d; }
+    .property-list span.mismatch .pred { color: #b91c1c; }
+    .property-legend { font-size: .82rem; color: var(--muted); margin: 0 0 10px; }
     details { background: #faf9fc; margin-block: 20px; }
     details .inner { padding-top: 10px; }
     details .inner figure { margin-bottom: 24px; }
@@ -475,6 +484,14 @@
       .dx-out { grid-template-columns: 1fr; gap: 14px; }
       .dx-scene svg { width: 100%; max-width: 240px; margin: 0 auto; }
     }
+    .chart-key.rep span:first-child::before { background: var(--accent); }
+    .chart-key.rep span:last-child::before { background: var(--accent2-dark); }
+    .bar.seen { background: var(--accent); }
+    .bar.unseen { background: var(--accent2-dark); }
+    #hero-title { text-wrap: balance; max-width: 900px; margin-inline: auto; }
+    .stat .value.pairs { font-size: 1.6rem; letter-spacing: -0.02em; }
+    .stat .value .pair { white-space: nowrap; }
+    .stat .value small { font-size: .5em; font-weight: 500; color: var(--muted); letter-spacing: .04em; margin-left: 2px; }
   </style>
 </head>
 <body>
@@ -506,222 +523,15 @@
     </div>
   </header>
   <nav class="section-nav" aria-label="Page sections">
-    <a href="#overview">Overview</a><a href="#results">Results</a><a href="#method">Method</a><a href="#video">Video</a><a href="#bibtex">Citation</a>
+    <a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a><a href="#video">Video</a><a href="#bibtex">Citation</a>
   </nav>
   <main>
 
 
   <section class="container hero" id="overview" aria-labelledby="hero-title">
     <p class="eyebrow">Tactile exploration → Object context → Adaptive action</p>
-    <h2 id="hero-title">Touch reveals how an object<br>should be handled.</h2>
-    <p class="section-sub">Appearance alone can hide what matters for manipulation. Our framework learns physical object properties through touch, then uses them to guide how the robot grasps, moves, and places each object.</p>
-    <div class="hero-grid">
-      <figure class="hero-card"><video controls muted loop playsinline preload="none" poster="static/images/posters/pouring_success_1.jpg" aria-label="Filled container: pour before recycling" src="static/videos/pouring_success_1.mp4"></video>
-        <figcaption><span class="property-label">Filled container</span><span class="speed-tag">4× speed</span><h3>Pour first. Then recycle.</h3><p>Fill-level context guides the robot to empty the container before placing it in the bin.</p></figcaption>
-      </figure>
-      <figure class="hero-card"><video controls muted loop playsinline preload="none" poster="static/images/posters/pouring_empty_success.jpg" aria-label="Empty container: recycle directly" src="static/videos/pouring_empty_success.mp4"></video>
-        <figcaption><span class="property-label">Empty container</span><span class="speed-tag">4× speed</span><h3>Recycle directly.</h3><p>The robot skips pouring when the inferred object properties indicate that the container is empty.</p></figcaption>
-      </figure>
-    </div>
-    <p class="hero-note">Two representative rollouts show how fill-level context changes the action sequence. These examples are not a matched comparison of the same container.</p>
-    <button class="motion-control" id="motion-toggle" type="button" hidden>Play visible demo loops</button>
-    <div class="stats">
-      <div class="stat"><div class="value">90%</div><div class="label">Average object-property estimation accuracy<br>Reported for seen and unseen objects</div><a href="#representation">Explore the representation</a></div>
-      <div class="stat"><div class="value">+52 pp</div><div class="label">Unseen rearrangement task success<br>15% without context → 67% with context</div><a href="#quantitative">See task success rates</a></div>
-      <div class="stat"><div class="value">3 tasks</div><div class="label">Rearrangement, pouring, and box opening<br>Parallel-jaw gripper and DeltaHand</div><a href="#results">Watch the robot results</a></div>
-    </div>
-  </section>
-
-  <section class="container" id="results">
-    <p class="eyebrow">Real-world manipulation</p><h2>Object Properties Change Robot Behavior</h2>
-    <p class="section-sub">Across three tasks, object context guides both strategy selection and execution.
-      Watch the grasp, the destination, and whether the robot acts or skips a step.</p>
-
-
-    <figure class="results-chart" id="quantitative">
-      <h3>Task success, with and without object context</h3>
-      <p class="reading-note" style="margin-left:0">Successfully completing the task requires both the correct strategy and successful physical execution.</p>
-      <div class="chart-key" aria-hidden="true"><span>Without object context</span><span>Text context + online vibrotactile sensing</span></div>
-<div class="result-row"><strong>Rearrangement<small>Seen objects</small></strong><div role="img" aria-label="Without context: 41 percent (22/54). With text context and online vibrotactile sensing: 83 percent (45/54)."><div class="bar-track"><div class="bar" style="width:41%"></div><span class="bar-value">41%</span></div><div class="bar-track"><div class="bar ours" style="width:83%"></div><span class="bar-value">83%</span></div></div></div><div class="result-row"><strong>Rearrangement<small>Unseen objects</small></strong><div role="img" aria-label="Without context: 15 percent (8/54). With text context and online vibrotactile sensing: 67 percent (36/54)."><div class="bar-track"><div class="bar" style="width:15%"></div><span class="bar-value">15%</span></div><div class="bar-track"><div class="bar ours" style="width:67%"></div><span class="bar-value">67%</span></div></div></div><div class="result-row"><strong>Pouring &amp; recycling<small>Seen + unseen objects</small></strong><div role="img" aria-label="Without context: 47 percent (14/30). With text context and online vibrotactile sensing: 77 percent (23/30)."><div class="bar-track"><div class="bar" style="width:47%"></div><span class="bar-value">47%</span></div><div class="bar-track"><div class="bar ours" style="width:77%"></div><span class="bar-value">77%</span></div></div></div><div class="result-row"><strong>Box opening<small>DeltaHand</small></strong><div role="img" aria-label="Without context: 25 percent (12/48). With text context and online vibrotactile sensing: 100 percent (48/48)."><div class="bar-track"><div class="bar" style="width:25%"></div><span class="bar-value">25%</span></div><div class="bar-track"><div class="bar ours" style="width:100%"></div><span class="bar-value">100%</span></div></div></div><figcaption>Overall task success from Fig. 7 and Table 2 of the paper, rounded to whole percentages. Rearrangement uses 54 trials per split and method, pouring 30 trials per method, and box opening 48 trials per method. “Text context” uses property descriptors inferred from tactile exploration, not ground-truth labels. The baseline retains object position but has no object-property context.</figcaption>
-    </figure>
-    <p class="section-sub" style="margin-top:22px"><b>Multi-object rearrangement.</b>
-      Two independent decisions follow from two different properties. Rigidity determines how the
-      object is grasped, and contents determine where it belongs. An empty container is the one
-      case that overrides the destination.</p>
-
-    <div class="dx" id="decision-explorer">
-      <div class="dx-rules">
-        <div class="dx-rule">
-          <h4>Rigidity decides the grasp</h4>
-          <div class="dx-maps">
-            <span class="dx-map">
-              <svg viewBox="0 0 26 20" aria-hidden="true"><rect x="8" y="10" width="10" height="8" rx="1.5" fill="#d9d6ea"/><rect x="9" y="2" width="3.4" height="6" rx="1.2" fill="#6155ad"/><rect x="13.6" y="2" width="3.4" height="6" rx="1.2" fill="#6155ad"/></svg>
-              <span><b>Rigid</b> top grasp</span>
-            </span>
-            <span class="dx-map">
-              <svg viewBox="0 0 26 20" aria-hidden="true"><rect x="10" y="4" width="6" height="12" rx="1.5" fill="#d9d6ea"/><rect x="3" y="7" width="4" height="6" rx="1.2" fill="#6155ad"/><rect x="19" y="7" width="4" height="6" rx="1.2" fill="#6155ad"/></svg>
-              <span><b>Deformable</b> side grasp</span>
-            </span>
-          </div>
-        </div>
-        <div class="dx-rule">
-          <h4>Contents decide the destination</h4>
-          <div class="dx-maps">
-            <span class="dx-map"><span class="dx-swatch" style="background:#e8b62c"></span><span><b>Liquid</b> yellow</span></span>
-            <span class="dx-map"><span class="dx-swatch" style="background:#8b8ac9"></span><span><b>Granular</b> purple</span></span>
-            <span class="dx-map"><span class="dx-swatch" style="background:#7cb96a"></span><span><b>Solid</b> green</span></span>
-            <span class="dx-map"><span class="dx-swatch" style="background:#b8b5c6"></span><span><b>Empty</b> recycle bin</span></span>
-          </div>
-        </div>
-      </div>
-
-      <div class="dx-pickers">
-        <div class="dx-picker">
-          <span id="dx-rig-label">Rigidity</span>
-          <div class="dx-btns" role="group" aria-labelledby="dx-rig-label" data-group="rigidity">
-            <button type="button" data-value="rigid" aria-pressed="true">Rigid</button>
-            <button type="button" data-value="deformable" aria-pressed="false">Deformable</button>
-          </div>
-        </div>
-        <div class="dx-picker">
-          <span id="dx-con-label">Contents</span>
-          <div class="dx-btns" role="group" aria-labelledby="dx-con-label" data-group="contents">
-            <button type="button" data-value="liquid" aria-pressed="true">Liquid</button>
-            <button type="button" data-value="granular" aria-pressed="false">Granular</button>
-            <button type="button" data-value="solid" aria-pressed="false">Solid</button>
-            <button type="button" data-value="empty" aria-pressed="false">Empty</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="dx-out">
-        <div class="dx-clip" id="dx-clip" data-empty="false">
-          <div class="clip-frame">
-            <video id="dx-video" controls muted loop playsinline preload="none" aria-label="Rearrangement rollout for the selected object properties"></video>
-            <span class="speed-badge" id="dx-speed" hidden></span>
-          </div>
-          <div class="dx-clip-empty">No rollout clip was recorded for this combination. The rule on the right still applies.</div>
-          <p class="dx-clip-note" id="dx-clip-note"></p>
-        </div>
-        <div class="dx-side">
-        <div class="dx-scene" aria-hidden="true">
-          <svg viewBox="0 0 200 150">
-            <g class="dx-slot" data-slot="liquid">
-              <rect x="10" y="20" width="52" height="30" rx="5" fill="#e8b62c" stroke="#232231" stroke-width="0" opacity=".3"/>
-              <text x="36" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Yellow</text>
-            </g>
-            <g class="dx-slot" data-slot="granular">
-              <rect x="74" y="20" width="52" height="30" rx="5" fill="#8b8ac9" stroke="#232231" stroke-width="0" opacity=".3"/>
-              <text x="100" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Purple</text>
-            </g>
-            <g class="dx-slot" data-slot="solid">
-              <rect x="138" y="20" width="52" height="30" rx="5" fill="#7cb96a" stroke="#232231" stroke-width="0" opacity=".3"/>
-              <text x="164" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Green</text>
-            </g>
-            <line x1="6" y1="53" x2="194" y2="53" stroke="#c9c5dc" stroke-width="2" stroke-linecap="round"/>
-            <g class="dx-slot" data-slot="empty">
-              <path d="M66 86 h68 l-9 30 h-50 z" fill="#b8b5c6" stroke="#232231" stroke-width="0" opacity=".3"/>
-              <text x="100" y="132" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Recycle bin</text>
-            </g>
-          </svg>
-        </div>
-        <div>
-          <p class="dx-verdict" id="dx-verdict" aria-live="polite"></p>
-          <p class="dx-why" id="dx-why"></p>
-        </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="versus" style="margin-top:20px">
-      <h3 class="versus-title">Rearrangement failure modes</h3>
-      <p class="reading-note">Two representative failures show what goes wrong when the strategy does not match the object. Playback is 4× speed.</p>
-      <div class="video-grid two">
-        <div class="cell">
-          <div class="clip-frame">
-            <video aria-label="rearrangement failed grasp" poster="static/images/posters/rr_fail_grasp.jpg" controls muted loop playsinline preload="none" style="aspect-ratio:1400/900" src="static/videos/rr_fail_grasp.mp4"></video>
-            <span class="speed-badge">4× speed</span>
-          </div>
-          <span class="cell-label"><span class="fail">✗ Failed grasp.</span> The chosen grasp does not hold the object.</span>
-        </div>
-        <div class="cell">
-          <div class="clip-frame">
-            <video aria-label="rearrangement wrong strategy" poster="static/images/posters/rr_fail_strategy.jpg" controls muted loop playsinline preload="none" style="aspect-ratio:1400/900" src="static/videos/rr_fail_strategy.mp4"></video>
-            <span class="speed-badge">4× speed</span>
-          </div>
-          <span class="cell-label"><span class="fail">✗ Wrong strategy.</span> The object is handled as if it had different properties.</span>
-        </div>
-      </div>
-    </div>
-
-    <p class="reading-note" style="margin-top:20px">Three consecutive placements from a single rearrangement episode.</p>
-    <div class="video-grid">
-      <div class="cell">
-        <video aria-label="rearrangement first placement" poster="static/images/posters/rearrangement_1.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_1.mp4"></video>
-        <span class="cell-label"><b>First placement.</b> Liquid-filled rigid jar. Top grasp, yellow area.<span class="speed-tag">4× speed</span></span>
-      </div>
-      <div class="cell">
-        <video aria-label="rearrangement second placement" poster="static/images/posters/rearrangement_2.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_2.mp4"></video>
-        <span class="cell-label"><b>Second placement.</b> Liquid-filled deformable bottle. Side grasp, yellow area.<span class="speed-tag">4× speed</span></span>
-      </div>
-      <div class="cell">
-        <video aria-label="rearrangement third placement" poster="static/images/posters/rearrangement_3.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_3.mp4"></video>
-        <span class="cell-label"><b>Third placement.</b> Granular-filled deformable can. Side grasp, purple area.<span class="speed-tag">4× speed</span></span>
-      </div>
-    </div>
-
-    <p class="section-sub" style="margin-top:26px"><b>Pouring &amp; recycling.</b>
-      The policy selects its strategy from the inferred fill level. Filled containers are
-      poured into the sink before recycling, while empty containers are recycled directly.</p>
-    <div class="video-grid">
-      <div class="cell">
-        <video aria-label="pouring success 1" poster="static/images/posters/pouring_success_1.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_success_1.mp4"></video>
-        <span class="cell-label"><span class="ok">✓</span> Filled container, poured then recycled<span class="speed-tag">4× speed</span></span>
-      </div>
-      <div class="cell">
-        <video aria-label="pouring success 2" poster="static/images/posters/pouring_success_2.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_success_2.mp4"></video>
-        <span class="cell-label"><span class="ok">✓</span> Filled container, poured then recycled<span class="speed-tag">4× speed</span></span>
-      </div>
-      <div class="cell">
-        <video aria-label="pouring empty success" poster="static/images/posters/pouring_empty_success.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_empty_success.mp4"></video>
-        <span class="cell-label"><span class="ok">✓</span> Empty container, recycled directly<span class="speed-tag">4× speed</span></span>
-      </div>
-    </div>
-
-    <div class="versus" style="margin-top:20px">
-      <h3 class="versus-title">Why object context matters</h3><p class="reading-note">Representative failure and success rollouts illustrate strategy selection; these are not synchronized, matched trials.</p>
-      <div class="video-grid two">
-        <div class="cell">
-          <video aria-label="pouring failure" poster="static/images/posters/pouring_failure.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_failure.mp4"></video>
-          <span class="cell-label"><span class="fail">✗ Without context.</span> An inappropriate action sequence spills the liquid<span class="speed-tag">4× speed</span></span>
-        </div>
-        <div class="cell">
-          <video aria-label="pouring apple cider success" poster="static/images/posters/pouring_apple_cider_success.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_apple_cider_success.mp4"></video>
-          <span class="cell-label"><span class="ok">✓ With context (ours).</span> An unseen container handled with the correct strategy<span class="speed-tag">4× speed</span></span>
-        </div>
-      </div>
-    </div>
-
-    <p class="section-sub" style="margin-top:26px"><b>Box opening with the DeltaHand.</b>
-      For the DeltaHand, exploration also captures weight-related properties that distinguish visually identical boxes. The hand opens the box
-      containing screws and takes no action on the empty one.</p>
-    <div class="video-grid two">
-      <div class="cell">
-        <video aria-label="box opening" poster="static/images/posters/box_opening.jpg" controls muted loop playsinline preload="none" src="static/videos/box_opening.mp4"></video>
-        <span class="cell-label"><b>Filled box</b>, opened via coordinated finger sliding<span class="speed-tag">20× speed</span></span>
-      </div>
-      <div class="cell">
-        <video aria-label="box no action" poster="static/images/posters/box_no_action.jpg" controls muted loop playsinline preload="none" src="static/videos/box_no_action.mp4"></video>
-        <span class="cell-label"><b>Empty box</b>, no action<span class="speed-tag">8× speed</span></span>
-      </div>
-    </div>
-
-</section>
-
-
-  <section class="container" id="method">
-    <p class="eyebrow">From exploration to action</p><h2>How It Works</h2>
-
+    <h2 id="hero-title">Touch reveals hidden physical properties beyond appearance.</h2>
+    <p class="section-sub">Properties that vision cannot infer directly, such as material, contents, or softness, can be revealed through tactile exploration. Our framework learns object representations from that exploration and uses them as object context, which determines property-dependent manipulation such as how each object is grasped and where it is placed.</p>
     <figure class="pf">
       <div class="pf-half">
         <p class="pf-half-title"><span class="pf-tag">a</span> Object representation learning</p>
@@ -736,7 +546,7 @@
                 <div class="pf-thumb"><img src="static/images/posters/ep_tap_cavity.jpg" alt="Tap on cavity" loading="lazy"><span>Tap</span></div>
               </div>
             </div>
-            <div class="pf-label"><b>Tactile exploration</b><span>Six exploratory actions</span></div>
+            <div class="pf-label"><b>Tactile exploration</b><span>A sequence of exploratory procedures</span></div>
           </div>
 
           <div class="pf-arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 10h13M11 5l5 5-5 5"/></svg></div>
@@ -895,6 +705,19 @@
         conditions a manipulation policy. The representation captures physical object properties independently of the downstream task. Task-specific policies use this object context to adapt their manipulation strategies.</figcaption>
     </figure>
 
+
+    <div class="stats">
+      <div class="stat"><div class="value">93% / 84%</div><div class="label">Property estimation accuracy on seen / unseen objects<br>Eight-seed average, decoded against text descriptors</div><a href="#representation">Explore the representation</a></div>
+      <div class="stat"><div class="value pairs"><span class="pair">41 → 83% <small>seen</small></span><br><span class="pair">15 → 67% <small>unseen</small></span></div><div class="label">Rearrangement task success<br>without → with object context</div><a href="#quantitative">See task success rates</a></div>
+      <div class="stat"><div class="value pairs"><span class="pair">47 → 77%</span></div><div class="label">Pouring task success<br>without → with object context</div><a href="#quantitative">See task success rates</a></div>
+      <div class="stat"><div class="value pairs"><span class="pair">25 → 100%</span></div><div class="label">Box opening task success<br>without → with object context</div><a href="#quantitative">See task success rates</a></div>
+    </div>
+  </section>
+
+  <section class="container" id="method">
+    <p class="eyebrow">From exploration to action</p><h2>How It Works</h2>
+
+
     <div class="pipeline">
       <div class="step">
         <span class="num">1</span>
@@ -912,20 +735,216 @@
       <div class="step">
         <span class="num">3</span>
         <h3>Act with object-centric context</h3>
-        <p>Each object is associated with its own representation and position. During manipulation,
-        the policy uses this object-specific context together with live observations, then switches
-        context when moving to the next object. In multi-object scenes the robot explores every object
-        first and executes the task one object at a time.</p>
+        <p>The policy handles one object at a time. That object's representation and position form a fixed context for the whole manipulation.</p>
       </div>
     </div>
 
+    <details>
+      <summary>Methods figures</summary>
+      <div class="inner">
+        <figure>
+          <img src="static/images/representation_learning.png" alt="Object representation learning pipeline from the paper." loading="lazy">
+          <figcaption>Object representation learning through tactile exploration. Each object is explored with a sequence of predefined actions while vibrotactile signals, 6-axis end-effector forces, and end-effector velocities are recorded. A token learner selects the most informative K tokens, which are aligned with text embeddings of physical-property descriptions using contrastive learning.</figcaption>
+        </figure>
+        <figure>
+          <img src="static/images/policy_learning.png" alt="Context-aware manipulation policy from the paper." loading="lazy">
+          <figcaption>Object-centric and context-aware manipulation policy learning. Built on the Action Chunking Transformer, the policy conditions on the learned object context and object position to focus on target-specific visual, tactile, and proprioceptive observations.</figcaption>
+        </figure>
+      </div>
+    </details>
+
   </section>
+
+  <section class="container" id="results">
+    <p class="eyebrow">Real-world manipulation</p><h2>Object Properties Change Robot Behavior</h2>
+    <p class="section-sub">Across three tasks, object context selects the manipulation strategy and stays fixed during execution as time-invariant context, while online vibrotactile feedback handles reactive adjustment. Every clip is an autonomous real-world policy rollout, not a teleoperated demonstration.</p>
+    <button class="motion-control" id="motion-toggle" type="button" hidden>Play visible demo loops</button>
+
+
+    <figure class="results-chart" id="quantitative">
+      <h3>Task success, with and without object context</h3>
+      <p class="reading-note" style="margin-left:0">Successfully completing the task requires both the correct strategy and successful physical execution.</p>
+      <div class="chart-key" aria-hidden="true"><span>Without object context</span><span>Text context + online vibrotactile sensing</span></div>
+<div class="result-row"><strong>Rearrangement<small>Seen objects</small></strong><div role="img" aria-label="Without context: 41 percent (22/54). With text context and online vibrotactile sensing: 83 percent (45/54)."><div class="bar-track"><div class="bar" style="width:41%"></div><span class="bar-value">41%</span></div><div class="bar-track"><div class="bar ours" style="width:83%"></div><span class="bar-value">83%</span></div></div></div><div class="result-row"><strong>Rearrangement<small>Unseen objects</small></strong><div role="img" aria-label="Without context: 15 percent (8/54). With text context and online vibrotactile sensing: 67 percent (36/54)."><div class="bar-track"><div class="bar" style="width:15%"></div><span class="bar-value">15%</span></div><div class="bar-track"><div class="bar ours" style="width:67%"></div><span class="bar-value">67%</span></div></div></div><div class="result-row"><strong>Pouring &amp; recycling<small>Seen + unseen objects</small></strong><div role="img" aria-label="Without context: 47 percent (14/30). With text context and online vibrotactile sensing: 77 percent (23/30)."><div class="bar-track"><div class="bar" style="width:47%"></div><span class="bar-value">47%</span></div><div class="bar-track"><div class="bar ours" style="width:77%"></div><span class="bar-value">77%</span></div></div></div><div class="result-row"><strong>Box opening<small>DeltaHand</small></strong><div role="img" aria-label="Without context: 25 percent (12/48). With text context and online vibrotactile sensing: 100 percent (48/48)."><div class="bar-track"><div class="bar" style="width:25%"></div><span class="bar-value">25%</span></div><div class="bar-track"><div class="bar ours" style="width:100%"></div><span class="bar-value">100%</span></div></div></div><figcaption>Overall task success from Fig. 7 and Table 2 of the paper, rounded to whole percentages. Rearrangement uses 54 trials per split and method, pouring 30 trials per method, and box opening 48 trials per method. “Text context” uses property descriptors inferred from tactile exploration, not ground-truth labels. The baseline retains object position but has no object-property context.</figcaption>
+    </figure>
+    <p class="section-sub" style="margin-top:22px"><b>Multi-object rearrangement.</b>
+      Rigidity determines how the object is grasped, and contents determine where it belongs. An empty container will be placed into the recycle bin through a top grasp.</p>
+
+    <div class="dx" id="decision-explorer">
+      <div class="dx-rules">
+        <div class="dx-rule">
+          <h4>Rigidity decides the grasp</h4>
+          <div class="dx-maps">
+            <span class="dx-map">
+              <svg viewBox="0 0 26 20" aria-hidden="true"><rect x="8" y="10" width="10" height="8" rx="1.5" fill="#d9d6ea"/><rect x="9" y="2" width="3.4" height="6" rx="1.2" fill="#6155ad"/><rect x="13.6" y="2" width="3.4" height="6" rx="1.2" fill="#6155ad"/></svg>
+              <span><b>Rigid</b> top grasp</span>
+            </span>
+            <span class="dx-map">
+              <svg viewBox="0 0 26 20" aria-hidden="true"><rect x="10" y="4" width="6" height="12" rx="1.5" fill="#d9d6ea"/><rect x="3" y="7" width="4" height="6" rx="1.2" fill="#6155ad"/><rect x="19" y="7" width="4" height="6" rx="1.2" fill="#6155ad"/></svg>
+              <span><b>Deformable</b> side grasp</span>
+            </span>
+          </div>
+        </div>
+        <div class="dx-rule">
+          <h4>Contents decide the destination</h4>
+          <div class="dx-maps">
+            <span class="dx-map"><span class="dx-swatch" style="background:#e8b62c"></span><span><b>Liquid</b> yellow</span></span>
+            <span class="dx-map"><span class="dx-swatch" style="background:#8b8ac9"></span><span><b>Granular</b> purple</span></span>
+            <span class="dx-map"><span class="dx-swatch" style="background:#7cb96a"></span><span><b>Solid</b> green</span></span>
+            <span class="dx-map"><span class="dx-swatch" style="background:#b8b5c6"></span><span><b>Empty</b> recycle bin</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dx-pickers">
+        <div class="dx-picker">
+          <span id="dx-rig-label">Rigidity</span>
+          <div class="dx-btns" role="group" aria-labelledby="dx-rig-label" data-group="rigidity">
+            <button type="button" data-value="rigid" aria-pressed="true">Rigid</button>
+            <button type="button" data-value="deformable" aria-pressed="false">Deformable</button>
+          </div>
+        </div>
+        <div class="dx-picker">
+          <span id="dx-con-label">Contents</span>
+          <div class="dx-btns" role="group" aria-labelledby="dx-con-label" data-group="contents">
+            <button type="button" data-value="liquid" aria-pressed="true">Liquid</button>
+            <button type="button" data-value="granular" aria-pressed="false">Granular</button>
+            <button type="button" data-value="solid" aria-pressed="false">Solid</button>
+            <button type="button" data-value="empty" aria-pressed="false">Empty</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dx-out">
+        <div class="dx-clip" id="dx-clip" data-empty="false">
+          <div class="clip-frame">
+            <video id="dx-video" controls muted loop playsinline preload="none" aria-label="Rearrangement rollout for the selected object properties"></video>
+            <span class="speed-badge" id="dx-speed" hidden></span>
+          </div>
+          <div class="dx-clip-empty">No rollout clip was recorded for this combination. The rule on the right still applies.</div>
+          <p class="dx-clip-note" id="dx-clip-note"></p>
+        </div>
+        <div class="dx-side">
+        <div class="dx-scene" aria-hidden="true">
+          <svg viewBox="0 0 200 150">
+            <g class="dx-slot" data-slot="liquid">
+              <rect x="10" y="20" width="52" height="30" rx="5" fill="#e8b62c" stroke="#232231" stroke-width="0" opacity=".3"/>
+              <text x="36" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Yellow</text>
+            </g>
+            <g class="dx-slot" data-slot="granular">
+              <rect x="74" y="20" width="52" height="30" rx="5" fill="#8b8ac9" stroke="#232231" stroke-width="0" opacity=".3"/>
+              <text x="100" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Purple</text>
+            </g>
+            <g class="dx-slot" data-slot="solid">
+              <rect x="138" y="20" width="52" height="30" rx="5" fill="#7cb96a" stroke="#232231" stroke-width="0" opacity=".3"/>
+              <text x="164" y="63" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Green</text>
+            </g>
+            <line x1="6" y1="53" x2="194" y2="53" stroke="#c9c5dc" stroke-width="2" stroke-linecap="round"/>
+            <g class="dx-slot" data-slot="empty">
+              <path d="M66 86 h68 l-9 30 h-50 z" fill="#b8b5c6" stroke="#232231" stroke-width="0" opacity=".3"/>
+              <text x="100" y="132" text-anchor="middle" font-size="11" fill="#5f5d72" opacity=".5">Recycle bin</text>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <p class="dx-verdict" id="dx-verdict" aria-live="polite"></p>
+          <p class="dx-why" id="dx-why"></p>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="versus" style="margin-top:20px">
+      <h3 class="versus-title">Rearrangement failure modes</h3>
+      <p class="reading-note">Two representative failures show what goes wrong when the strategy does not match the object. Playback is 4× speed.</p>
+      <div class="video-grid two">
+        <div class="cell">
+          <div class="clip-frame">
+            <video aria-label="rearrangement wrong strategy" poster="static/images/posters/rr_fail_strategy.jpg" controls muted loop playsinline preload="none" style="aspect-ratio:1400/900" src="static/videos/rr_fail_strategy.mp4"></video>
+            <span class="speed-badge">4× speed</span>
+          </div>
+          <span class="cell-label"><span class="fail">✗ Wrong strategy.</span> A deformable object is misread as rigid, so the policy uses a top grasp instead of a side grasp.</span>
+        </div>
+        <div class="cell">
+          <div class="clip-frame">
+            <video aria-label="rearrangement failed grasp" poster="static/images/posters/rr_fail_grasp.jpg" controls muted loop playsinline preload="none" style="aspect-ratio:1400/900" src="static/videos/rr_fail_grasp.mp4"></video>
+            <span class="speed-badge">4× speed</span>
+          </div>
+          <span class="cell-label"><span class="fail">✗ Failed grasp.</span> In-hand adjustment fails to reach an accurate target and a stable grasp.</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="reading-note" style="margin-top:20px">Three consecutive placements from a single rearrangement episode.</p>
+    <div class="video-grid">
+      <div class="cell">
+        <video aria-label="rearrangement first placement" poster="static/images/posters/rearrangement_1.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_1.mp4"></video>
+        <span class="cell-label"><b>First placement.</b> Liquid-filled rigid jar. Top grasp, yellow area.<span class="speed-tag">4× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="rearrangement second placement" poster="static/images/posters/rearrangement_2.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_2.mp4"></video>
+        <span class="cell-label"><b>Second placement.</b> Liquid-filled deformable bottle. Side grasp, yellow area.<span class="speed-tag">4× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="rearrangement third placement" poster="static/images/posters/rearrangement_3.jpg" controls muted loop playsinline preload="none" src="static/videos/rearrangement_3.mp4"></video>
+        <span class="cell-label"><b>Third placement.</b> Granular-filled deformable can. Side grasp, purple area.<span class="speed-tag">4× speed</span></span>
+      </div>
+    </div>
+
+    <p class="section-sub" style="margin-top:26px"><b>Pouring &amp; recycling.</b>
+      The policy selects its strategy from the inferred fill level. Filled containers are
+      poured into the sink before recycling, while empty containers are recycled directly.</p>
+    <div class="video-grid">
+      <div class="cell">
+        <video aria-label="pouring success 1" poster="static/images/posters/pouring_success_1.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_success_1.mp4"></video>
+        <span class="cell-label"><span class="ok">✓</span> Filled container, poured then recycled<span class="speed-tag">4× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="pouring success 2" poster="static/images/posters/pouring_success_2.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_success_2.mp4"></video>
+        <span class="cell-label"><span class="ok">✓</span> Filled container, poured then recycled<span class="speed-tag">4× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="pouring empty success" poster="static/images/posters/pouring_empty_success.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_empty_success.mp4"></video>
+        <span class="cell-label"><span class="ok">✓</span> Empty container, recycled directly<span class="speed-tag">4× speed</span></span>
+      </div>
+    </div>
+
+    <div class="versus" style="margin-top:20px">
+      <h3 class="versus-title">Why object context matters</h3><p class="reading-note">Representative failure and success rollouts illustrate strategy selection; these are not synchronized, matched trials.</p>
+      <div class="video-grid two">
+        <div class="cell">
+          <video aria-label="pouring failure" poster="static/images/posters/pouring_failure.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_failure.mp4"></video>
+          <span class="cell-label"><span class="fail">✗ Without context.</span> An inappropriate action sequence spills the liquid<span class="speed-tag">4× speed</span></span>
+        </div>
+        <div class="cell">
+          <video aria-label="pouring apple cider success" poster="static/images/posters/pouring_apple_cider_success.jpg" controls muted loop playsinline preload="none" src="static/videos/pouring_apple_cider_success.mp4"></video>
+          <span class="cell-label"><span class="ok">✓ With context (ours).</span> An unseen container handled with the correct strategy<span class="speed-tag">4× speed</span></span>
+        </div>
+      </div>
+    </div>
+
+    <p class="section-sub" style="margin-top:26px"><b>Box opening with the DeltaHand.</b>
+      For the DeltaHand, exploration also captures weight-related properties that distinguish visually identical boxes. The hand opens the box
+      containing screws and takes no action on the empty one.</p>
+    <div class="video-grid two">
+      <div class="cell">
+        <video aria-label="box opening" poster="static/images/posters/box_opening.jpg" controls muted loop playsinline preload="none" src="static/videos/box_opening.mp4"></video>
+        <span class="cell-label"><b>Filled box</b>, opened via coordinated finger sliding<span class="speed-tag">20× speed</span></span>
+      </div>
+      <div class="cell">
+        <video aria-label="box no action" poster="static/images/posters/box_no_action.jpg" controls muted loop playsinline preload="none" src="static/videos/box_no_action.mp4"></video>
+        <span class="cell-label"><b>Empty box</b>, no action<span class="speed-tag">8× speed</span></span>
+      </div>
+    </div>
+
+</section>
+
+
 
 
   <section class="container" id="representation">
-    <h2>Object Representation Learning</h2>
-    <p class="section-sub">A compact representation connects transient tactile events to persistent object properties.
-      The paper reports <b>90% average property estimation accuracy</b> for seen and unseen objects.</p>
+    <h2>Object Representation Learning Details</h2>
+    <p class="section-sub">We evaluate the contrastive learning and language alignment method on <b>9 seen and 9 unseen objects</b>, each with 3 independently collected test trials that are never used in training. Seen means the object and its property combination appear in the training set. The same framework on the multi-finger DeltaHand reaches 96% on seen and 88% on unseen objects.</p>
 
     <p class="section-sub" style="margin-top:22px"><b>Exploratory actions.</b>
       A Franka arm with fin-ray parallel-jaw fingers probes each object with six predefined
@@ -960,6 +979,14 @@
       </div>
     </div>
 
+    <p class="section-sub" style="margin-top:26px"><b>A complete exploration with sound.</b></p>
+    <div class="video-wrap">
+      <video controls preload="none" poster="static/images/posters/exploration_full.jpg" style="aspect-ratio:1600/484" aria-label="Complete exploration of a deformable metal can with contact microphone audio">
+        <source src="static/videos/exploration_full.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="reading-note" style="margin-top:8px;text-align:center">Playback at 2× speed. The timer in the video shows real elapsed time. Metal, deformable, granular contents, half filled.</p>
+
     <p class="section-sub" style="margin-top:30px"><b>Learning framework.</b>
       The three modalities are encoded into a multimodal token sequence, compressed by a
       Top-K token learner, and aligned with text embeddings of physical properties.</p>
@@ -973,9 +1000,21 @@
       <div class="method-stage"><h3>Use object context for manipulation</h3><ol>
         <li><strong>Infer properties from touch</strong><span>At inference, the learned embedding is compared with candidate property descriptors using cosine similarity.</span></li>
         <li><strong>Choose the context representation</strong><span>The paper evaluates both the tactile embedding itself and text embeddings of its decoded property descriptors.</span></li>
-        <li><strong>Condition the task policy</strong><span>The current object's representation and position condition an Action Chunking Transformer alongside visual, proprioceptive, and online tactile observations. When one object is done, the context switches to the next.</span></li>
+        <li><strong>Condition the task policy</strong><span>The current object's representation and position condition an Action Chunking Transformer alongside visual, proprioceptive, and online tactile observations.</span></li>
       </ol></div>
     </div>
+
+    <figure class="results-chart" id="representation-results">
+      <h3>Property estimation on independently collected test trials</h3>
+      <p class="reading-note" style="margin-left:0">Accuracy averaged over the four property axes and eight training seeds. Properties are decoded by cosine similarity between the tactile embedding and candidate text descriptors, so the decoding vocabulary can be changed without retraining.</p>
+      <div class="chart-key rep" aria-hidden="true"><span>Seen objects</span><span>Unseen objects</span></div>
+      <div class="result-row"><strong>Training prompts<small>The descriptors used during training</small></strong><div role="img" aria-label="Seen 93 percent, unseen 84 percent."><div class="bar-track"><div class="bar seen" style="width:93%"></div><span class="bar-value">93%</span></div><div class="bar-track"><div class="bar unseen" style="width:84%"></div><span class="bar-value">84%</span></div></div></div>
+      <div class="result-row"><strong>29 alternative descriptors<small>Not used during training</small></strong><div role="img" aria-label="Seen 88 percent, unseen 81 percent."><div class="bar-track"><div class="bar seen" style="width:88%"></div><span class="bar-value">88%</span></div><div class="bar-track"><div class="bar unseen" style="width:81%"></div><span class="bar-value">81%</span></div></div></div>
+      <div class="result-row"><strong>17-descriptor subset<small>No shared word stem with training prompts; e.g., steel for metal</small></strong><div role="img" aria-label="Seen 85 percent, unseen 79 percent."><div class="bar-track"><div class="bar seen" style="width:85%"></div><span class="bar-value">85%</span></div><div class="bar-track"><div class="bar unseen" style="width:79%"></div><span class="bar-value">79%</span></div></div></div>
+      <figcaption>Property decoding generalizes to the tested alternative descriptors without retraining, with a 3 to 8 percentage-point drop in accuracy relative to training prompts.</figcaption>
+    </figure>
+
+
 
     <p class="section-sub"><b>Which moments does the model keep?</b>These examples show selected tokens concentrated in particular exploration phases. Select an object to inspect its trajectory and predicted properties.</p>
     <div class="example-picker" role="group" aria-label="Token selection examples" hidden>
@@ -984,16 +1023,14 @@
       <button type="button" aria-pressed="false" data-example="2">Granular-filled can</button>
     </div>
     <figure>
-      <div class="token-scroll"><div class="token-window" style="--example:0"><img src="static/images/token_selection.png" alt="Selected tokens for an empty metal can across squeeze, swing, table tap, cavity tap, shake, and slide phases." loading="lazy"></div></div>
-      <div id="token-properties" aria-live="polite"><div class="property-list"><span>Contents · empty</span><span>Fill level · empty</span><span>Material · metal</span><span>Rigidity · deformable</span></div><p class="token-detail">Selected tokens occur in squeezing, swinging, cavity tapping, and shaking, with few in table tapping or sliding.</p></div>
-      <figcaption>Squares mark selected tokens; dashed lines separate exploratory actions. The original figure labels the fill-level descriptor as “mass.” On a small screen, scroll horizontally to inspect the trajectory.</figcaption>
-      <a class="figure-link" href="static/images/token_selection.png" target="_blank" rel="noopener">View all three trajectories at full resolution ↗</a>
+      <div class="token-scroll"><div class="token-window" style="--example:0"><img src="static/images/token_selection_chart.png" alt="Selected tokens for an empty metal can across squeeze, swing, table tap, cavity tap, shake, and slide phases." loading="lazy"></div></div>
+      <div id="token-properties" aria-live="polite"><p class="property-legend">Ground truth on the left, model prediction on the right. Green marks a match.</p><div class="property-list"><span class="match"><b>Contents</b><span class="gt">GT empty</span> → <span class="pred">Pred empty</span></span><span class="match"><b>Fill level</b><span class="gt">GT empty</span> → <span class="pred">Pred empty</span></span><span class="match"><b>Material</b><span class="gt">GT metal</span> → <span class="pred">Pred metal</span></span><span class="match"><b>Rigidity</b><span class="gt">GT deformable</span> → <span class="pred">Pred deformable</span></span></div><p class="token-detail">Selected tokens occur in squeezing, swinging, cavity tapping, and shaking, with few in table tapping or sliding.</p></div>
     </figure>
     <div class="embedding-explorer" aria-labelledby="embedding-title">
       <div class="embedding-intro">
         <p class="eyebrow">Tactile representations meet language</p>
         <h3 id="embedding-title">Explore tactile and language alignment</h3>
-        <p>Contrastive learning aligns tactile object representations with language descriptions of physical properties. The same 136 tactile embeddings stay in place as you color them by contents, fill level, material, or rigidity. Diamonds show the corresponding language anchors.</p>
+        <p>Visualization of 136 training-set tactile embeddings from one frozen model run. Contrastive learning aligns tactile object representations with language descriptions of physical properties. The same 136 tactile embeddings stay in place as you color them by contents, fill level, material, or rigidity. Diamonds show the corresponding language anchors.</p>
       </div>
       <div class="embedding-controls" role="group" aria-label="Choose a property visualization" hidden>
         <span class="embedding-control-label">Color by</span>
@@ -1013,14 +1050,11 @@
         </figure>
         <div class="embedding-inspector" id="embedding-inspector" role="status" aria-live="polite"></div>
         <p class="embedding-key">Circles are tactile embeddings · Diamonds are language anchors · Crosses are incorrect predictions</p>
-        <p class="embedding-note">Hover or focus to inspect. Click a point to keep its details; press Escape to clear. Click a legend label to highlight a class.</p>
       </div>
       <figure id="embedding-fallback" class="embedding-figure">
         <img src="static/images/umap_content_frozen.png" alt="Frozen UMAP projection showing tactile samples and language anchors colored by contents." loading="lazy">
-        <figcaption>Contents are solid, granular, liquid, or empty.</figcaption>
+        <figcaption>136 training-set tactile embeddings from one frozen model run, colored by contents. Contents are solid, granular, liquid, or empty.</figcaption>
       </figure>
-      <p class="embedding-note" style="margin-top:14px">A qualitative 2D projection, not a measure of classification accuracy. Language anchors are transformed into the fitted tactile UMAP space; distances in this projection do not directly reproduce high-dimensional cosine similarity.</p>
-      <a class="figure-link" href="static/data/umap.json" download>Download plotted coordinates and labels</a>
     </div>
 </section>
 
@@ -1036,29 +1070,6 @@
   </section>
 
 
-  <section class="container">
-    <details>
-      <summary>Abstract</summary>
-      <div class="inner">
-        <p>
-          Implicit object properties that are difficult to directly infer from vision, such as material, container
-          contents, or softness, can be revealed through tactile sensing and exploratory interactions. However,
-          because tactile signals are transient and sparse, extracting informative tactile events and effectively
-          incorporating them into robotic manipulation remains a challenge. In this work, we present an
-          object-centric context-aware manipulation framework that learns task-agnostic object representations
-          through tactile exploration. A token learner autonomously selects representative tactile segments from
-          long-horizon exploration, while contrastive alignment with descriptive text embeddings enables a latent
-          space that captures multiple physical object properties. These learned representations are then used as
-          semantic context to guide object-centric manipulation policies and adapt strategies based on object
-          properties. Experiments show that the learned representations achieve 90% accuracy for object property
-          estimation for both seen and unseen objects. Evaluated on three tasks involving visually ambiguous
-          objects, i.e. multi-object rearrangement, pouring, and box opening, the proposed framework improves both
-          target selection and property-dependent manipulation adaptation, achieving an average task success rate
-          of 85%, compared to 36% for baseline policies without object-context conditioning.
-        </p>
-      </div>
-    </details>
-  </section>
 
 
   <section class="container" id="bibtex">
@@ -1085,9 +1096,9 @@
     (() => {
 
       const examples = [
-        { properties: ['empty', 'empty', 'metal', 'deformable'], name: 'empty metal can', note: 'Selected tokens occur in squeezing, swinging, cavity tapping, and shaking, with few in table tapping or sliding.' },
-        { properties: ['liquid', 'full', 'plastic', 'rigid'], name: 'liquid-filled plastic bottle', note: 'For this bottle, many selected tokens occur during swinging; cavity tapping and shaking also contribute.' },
-        { properties: ['granular', 'half', 'metal', 'deformable'], name: 'granular-filled metal can', note: 'For this can, selected tokens concentrate in swinging and shaking, with additional tokens during cavity tapping.' }
+        { gt: ['empty', 'empty', 'metal', 'deformable'], pred: ['empty', 'empty', 'metal', 'deformable'], name: 'empty metal can', note: 'Selected tokens occur in squeezing, swinging, cavity tapping, and shaking, with few in table tapping or sliding.' },
+        { gt: ['liquid', 'full', 'plastic', 'rigid'], pred: ['liquid', 'full', 'plastic', 'rigid'], name: 'liquid-filled plastic bottle', note: 'For this bottle, many selected tokens occur during swinging; cavity tapping and shaking also contribute.' },
+        { gt: ['granular', 'half', 'metal', 'deformable'], pred: ['granular', 'half', 'metal', 'deformable'], name: 'granular-filled metal can', note: 'For this can, selected tokens concentrate in swinging and shaking, with additional tokens during cavity tapping.' }
       ];
       const picker = document.querySelector('.example-picker');
       picker.hidden = false;
@@ -1100,11 +1111,19 @@
         const labels = ['Contents', 'Fill level', 'Material', 'Rigidity'];
         const container = document.getElementById('token-properties');
         container.replaceChildren();
+        const legend = document.createElement('p'); legend.className = 'property-legend'; legend.textContent = 'Ground truth on the left, model prediction on the right. Green marks a match.';
         const properties = document.createElement('div');
         properties.className = 'property-list';
-        example.properties.forEach((value, i) => { const span = document.createElement('span'); span.textContent = labels[i] + ' · ' + value; properties.append(span); });
+        example.gt.forEach((gtValue, i) => {
+          const predValue = example.pred[i];
+          const span = document.createElement('span'); span.className = gtValue === predValue ? 'match' : 'mismatch';
+          const b = document.createElement('b'); b.textContent = labels[i];
+          const gt = document.createElement('span'); gt.className = 'gt'; gt.textContent = 'GT ' + gtValue;
+          const pred = document.createElement('span'); pred.className = 'pred'; pred.textContent = 'Pred ' + predValue;
+          span.append(b, gt, document.createTextNode(' → '), pred); properties.append(span);
+        });
         const note = document.createElement('p'); note.className = 'token-detail'; note.textContent = example.note;
-        container.append(properties, note);
+        container.append(legend, properties, note);
       }));
       const videos = [...document.querySelectorAll('video[loop]')];
       const motion = document.getElementById('motion-toggle');
@@ -1210,7 +1229,7 @@
         why.textContent = isEmpty
           ? 'Empty containers are recycled with a top grasp whatever their rigidity, so the rigidity choice does not apply here.'
           : (state.rigidity === 'deformable'
-              ? 'Deformable objects are grasped from the side so they are not crushed. '
+              ? 'Deformable objects are grasped from the side for stable manipulation. '
               : 'Rigid objects are grasped from the top. ') + dest.why;
 
         const hasClip = (r, c) => c === 'empty' || Boolean(CLIPS[r + '|' + c]);
